@@ -1,11 +1,136 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <base target="_top">
-  </head>
-  <body>
+<script>
+// Nav Bar functions
+    $( "#ideanav" ).click(function() {
+      $( "#fixes" ).hide();
+      $( "#home" ).hide();
+      $( "#brainstorm" ).hide();
+      $( "#ideas" ).show();
+    });
     
-  </body>
-</html>
-
-
+    $( "#homenav" ).click(function() {
+      $( "#ideas" ).hide();
+      $( "#fixes" ).hide();
+      $( "#brainstorm" ).hide();
+      $( "#home" ).show();
+    });
+    
+    $( "#fixnav" ).click(function() {
+      $( "#ideas" ).hide();
+      $( "#home" ).hide();
+      $( "#brainstorm" ).hide();
+      $( "#fixes" ).show();
+    });
+    
+    $( "#brainstorm_nav" ).click(function() {
+      $( "#fixes" ).hide();
+      $( "#home"  ).hide();
+      $( "#ideas" ).hide();
+      $( "brainstorm").show();
+    });
+   //////////////////////////////
+   
+   // font function
+    //$( ".font" ).click(function() {
+     // google.script.run.setFont($(this).text());
+    //});
+    
+    $(function() {
+      google.script.run.withSuccessHandler(fill).get_data();
+    });
+      
+    $(function() {
+      google.script.run.withSuccessHandler(log_layouts).get_layouts();
+      google.script.run.withSuccessHandler(log_layouts).get_page_elements();
+    });
+      
+      function log_layouts(layouts) {
+        console.log(layouts);
+      }
+      function update_counts(data) {
+        num_words = data[0];
+        num_imgs = data[1];
+        
+        $('#wordcount').text(num_words);
+        $('#imgcount').text(num_imgs);
+        $('#ratio').text(num_words*1.0/num_imgs);
+      }
+      
+      
+      // filling functions 
+      
+      function fill(data) {
+        // [goal_data, idea_data, fix_data]
+        goal_data = data[0];
+        idea_data = data[1];
+        fix_data = data[2];
+        
+        fill_goals(goal_data);
+        fill_ideas(idea_data);
+        fill_fixes(fix_data);
+        
+      }
+      
+      function fill_goals(goal_data) {
+      // [time, purpose, audience]
+        time = goal_data[0];
+        purpose = goal_data[1];
+        audience = goal_data[2];
+        
+        $('#time').text(time);
+        $('#goal').text(purpose);
+        $('#audience').text(audience);
+      }
+      
+      function fill_ideas(idea_data) {
+        // [fonts, quotes]
+        fonts = idea_data[0];
+        quotes = idea_data[1];
+        
+        add_font_idea(fonts);
+        add_quote_idea(quotes);
+      }
+      
+      function add_font_idea(fonts) {
+        text = "<div class='idea'>\
+          <div class='label'>SLIDE</div>\
+          <div class='label'>IDEA</div>\
+          Here are some typefaces that are a better fit for the content you are presenting\
+          <div id='fontbox'>"
+          
+        for (i=0; i<fonts.length; i++) {
+          text += "<button class='font' style='font-family:"+fonts[i]+"'>"+fonts[i]+"</button>";
+        }
+        text += "</div></div>";
+        $('#ideabox').append(text);
+        
+        //add function to font buttons
+        $( ".font" ).click(function() { google.script.run.setFont($(this).text());});
+      }
+      
+      function add_quote_idea(quotes) {
+        text = "<div class='idea'>\
+          <div class='label'>SLIDE</div>\
+          <div class='label'>IDEA</div>\
+          Here are some quotes that can help make your slide more memorable";
+        
+        for (i=0; i<quotes.length; i++) {
+          text += "<button class='quote'>" + quotes[i] + "</button>";
+        }
+        text += "</div>";
+        $('#ideabox').append(text);
+      }
+      
+      function fill_fixes(fix_data) {
+        for(i = 0; i < fix_data.length; i++) {
+          add_fix(fix_data[i]);
+        }
+      }
+      
+      function add_fix(fix) {
+        text = "<div class='suggestion'>\
+          <div class='label'>SLIDE</div>\
+          <div class='label'>SUGGESTION</div>\
+          " + fix + "</div>";
+        $('#fixbox').append(text);     
+      } 
+</script>

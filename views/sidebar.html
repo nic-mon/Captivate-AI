@@ -1,11 +1,81 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <base target="_top">
+    <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+    <?!= include('views/sidebar.css'); ?>
   </head>
   <body>
+  
+    <div id='purpose'>
+      <div class='purpose-item'>
+        <div id='time'></div>
+        <div class='purpose-label'>MINUTES</div>
+      </div>
+      <div class='purpose-item'>
+        <div id='goal'></div>
+        <div class='purpose-label'>GOAL</div>
+      </div>
+      <div class='purpose-item'>
+        <div id='audience'></div>
+        <div class='purpose-label'>AUDIENCE</div>
+      </div>
+    </div>
     
+    <div class='page' id='ideas'>
+      <h2> Magic Ideas </h2>
+      <div id='ideabox'>
+        
+      </div>
+    </div>
+    
+    <div class='page' id='home'>
+      <h2> Home </h2>
+        <div class='suggestion'>
+          <div class='label'>SUGGESTION</div>
+          There is too much text on this slide. Consider selecting a picture you would like to replace it with
+        </div>
+      <div class='idea'>
+          <div class='label'>FONTS</div>
+          <div id='fontbox'>
+            <button class='font' id='TNR'>Times New Roman</button>
+            <button class='font' id='athelas'>Athelas</button>
+            <button class='font' id='georgia'>Georgia</button>
+          </div>
+        </div>
+      <div class='idea'>
+          <div class='label'>Quotes</div>
+          <button class='quote'>"Don't cry because it's over, smile because it happened." -Dr. Seuss</button>
+          <button class='quote'>"Two things are infinite: the universe and human stupidity; and I'm not sure about the universe." -Albert Einstein</button>
+        </div>
+    </div>
+    
+    <div class='page' id='fixes'>
+      <h2> Quick Fixes </h2>
+      <div id='fixbox'>
+        
+      </div>
+    </div>
+  
+    <div class='page' id='brainstorm'>
+      <h2> Brainstorm </h2>
+          <!-- brainstorm session in the sidebar -->
+          <form id='brainstorm_form' method="post" onsubmit="submitBrainstorm(this)">
+            Name: <input type="text" name="name" /><br/>
+            Brainstorm:<br/>
+            <textarea name="bstorm"></textarea><br/>
+            <input type="submit" value="Submit" />
+          </form>
+    </div>      
+  
+    <footer>
+      <div><button class='navitem center' id='brainstorm_nav'> Brainstorm </button></div>
+      <br>
+      <button class='navitem' id='ideanav'> Ideas </button>
+      <button class='navitem' id='homenav'> Home </button>
+      <button class='navitem' id='fixnav'> Fixes </button>
+      
+    <footer>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <?!= include('jquery/sidebar.js'); ?>
   </body>
 </html>
-
-
