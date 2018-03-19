@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="52a1f912-f172-403c-9cd2-270b510ee3e5" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/controllers/sidebar.js" afterPath="$PROJECT_DIR$/controllers/sidebar.js" />
+    <list default="true" id="52a1f912-f172-403c-9cd2-270b510ee3e5" name="Default" comment="Fixed brainstorm no-show bug.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/jquery/sidebar.js.html" afterPath="$PROJECT_DIR$/jquery/sidebar.js.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -40,13 +40,13 @@
       <file leaf-file-name="sidebar.js.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/jquery/sidebar.js.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="840">
-              <caret line="56" column="6" lean-forward="true" selection-start-line="56" selection-start-column="6" selection-end-line="56" selection-end-column="6" />
+            <state relative-caret-position="-1434">
+              <caret line="19" column="32" lean-forward="true" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
               <folding>
-                <marker date="1521413040000" expanded="true" signature="2370:2575" ph="..." />
-                <marker date="1521413040000" expanded="true" signature="2678:2690" ph="..." />
-                <marker date="1521413040000" expanded="true" signature="3028:3188" ph="..." />
-                <marker date="1521413040000" expanded="true" signature="3611:3729" ph="..." />
+                <marker date="1521441902000" expanded="true" signature="2372:2577" ph="..." />
+                <marker date="1521441902000" expanded="true" signature="2680:2692" ph="..." />
+                <marker date="1521441902000" expanded="true" signature="3030:3190" ph="..." />
+                <marker date="1521441902000" expanded="true" signature="3613:3731" ph="..." />
               </folding>
             </state>
           </provider>
@@ -81,8 +81,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/controllers/sidebar.js" />
-        <option value="$PROJECT_DIR$/jquery/sidebar.js.html" />
         <option value="$PROJECT_DIR$/.clasp.json" />
+        <option value="$PROJECT_DIR$/jquery/sidebar.js.html" />
       </list>
     </option>
   </component>
@@ -178,7 +178,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1521405995159</updated>
-      <workItem from="1521405996747" duration="3464000" />
+      <workItem from="1521405996747" duration="3631000" />
     </task>
     <task id="LOCAL-00001" summary="Associated Webstorm with clasp so as to be able to test the add on in the browser.">
       <created>1521413676734</created>
@@ -198,7 +198,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3464000" />
+    <option name="totallyTimeSpent" value="3631000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="107" y="-1045" width="1400" height="775" extended-state="0" />
@@ -206,6 +206,7 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32896653" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -232,7 +233,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Associated Webstorm with clasp so as to be able to test the add on in the browser." />
     <MESSAGE value="Changed scriptId to the one attached to the Slides container." />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed scriptId to the one attached to the Slides container." />
+    <MESSAGE value="Fixed brainstorm no-show bug." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed brainstorm no-show bug." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -273,13 +275,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jquery/sidebar.js.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="56" column="6" lean-forward="true" selection-start-line="56" selection-start-column="6" selection-end-line="56" selection-end-column="6" />
+        <state relative-caret-position="-1434">
+          <caret line="19" column="32" lean-forward="true" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
           <folding>
-            <marker date="1521413040000" expanded="true" signature="2370:2575" ph="..." />
-            <marker date="1521413040000" expanded="true" signature="2678:2690" ph="..." />
-            <marker date="1521413040000" expanded="true" signature="3028:3188" ph="..." />
-            <marker date="1521413040000" expanded="true" signature="3611:3729" ph="..." />
+            <marker date="1521441902000" expanded="true" signature="2372:2577" ph="..." />
+            <marker date="1521441902000" expanded="true" signature="2680:2692" ph="..." />
+            <marker date="1521441902000" expanded="true" signature="3030:3190" ph="..." />
+            <marker date="1521441902000" expanded="true" signature="3613:3731" ph="..." />
           </folding>
         </state>
       </provider>
