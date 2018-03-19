@@ -39,7 +39,7 @@ function updateDivWithImages(imgs) {
 /// my functions below
 
 function doGet(request) {
-  var data = get_counts()
+  var data = get_counts();
   var result = {
     n_words: data[0],
     n_imgs: data[1]
@@ -53,7 +53,7 @@ function word_to_img() {
   texts = getElementTexts(slide.getPageElements());
   var text = '';
   for (var x = 0; x < texts.length; ++x) {
-    text = text.concat(texts[x].asString())
+    text = text.concat(texts[x].asString());
   }
   num_words = text.split(" ").length;
   num_imgs = slide.getImages().length;
