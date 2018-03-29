@@ -122,3 +122,33 @@ function setFont(font) {
     });
   });
 }
+
+/**
+ * Recursively gets child text elements a list of elements.
+ * @param {PageElement[]} elements The elements to get text from.
+ * @return {Text[]} An array of text elements.
+ */
+function getElementTexts(elements) {
+    var texts = [];
+    elements.forEach(function(element) {
+        switch (element.getPageElementType()) {
+            case SlidesApp.PageElementType.GROUP:
+                element.asGroup().getChildren().forEach(function(child) {
+                    texts = texts.concat(getElementTexts(child));
+                });
+                break;
+            case SlidesApp.PageElementType.TABLE:
+                var table = element.asTable();
+                for (var y = 0; y < table.getNumColumns(); ++y) {
+                    for (var x = 0; x < table.getNumRows(); ++x) {
+                        texts.push(table.getCell(x, y).getText());
+                    }
+                }
+                break;
+            case SlidesApp.PageElementType.SHAPE:
+                texts.push(element.asShape().getText());
+                break;
+        }
+    });
+    return texts;
+}
