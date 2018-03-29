@@ -108,6 +108,11 @@ function onEdit(e){
   
 }
 
+/* onClick function
+  Sets the font from the font buttons on the UI.
+    Behavior: Appends this function when the user clicks
+    a font.
+ */
 function setFont(font) {
   var slides = SlidesApp.getActivePresentation().getSlides();
   slides.forEach(function(slide) {
