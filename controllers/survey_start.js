@@ -4,7 +4,7 @@
  *
  **********************************************************************/
 
-function showSidebar() {
+function userSurvey() {
     var html = HtmlService.createTemplateFromFile('views/survey_start')
         .evaluate();
     SlidesApp.getUi()
