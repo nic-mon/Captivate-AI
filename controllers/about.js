@@ -8,5 +8,5 @@ function openDialog() {
   var html = HtmlService.createTemplateFromFile('views/about')
     .evaluate();
   SlidesApp.getUi()
-    .showModalDialog(html, 'About Captivate-AI');
+    .showModalDialog(html, 'About Captivate AI');
 }
