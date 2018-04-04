@@ -20,7 +20,7 @@
       $( "#brainstorm" ).hide();
       $( "#fixes" ).show();
     });
-    
+
     $( "#brainstorm_nav" ).click(function() {
       $( "#fixes" ).hide();
       $( "#home"  ).hide();
@@ -98,7 +98,7 @@
           <div id='fontbox'>";
           
         for (i=0; i<fonts.length; i++) {
-          text += "<button class='font' style='font-family:"+fonts[i]+"'>"+fonts[i]+"</button>";
+          text += "<button class='font grey lighten-2 waves-light waves-effect' style='font-family:"+fonts[i]+"'>"+fonts[i]+"</button>";
         }
         text += "</div></div>";
         $('#ideabox').append(text);
@@ -114,7 +114,8 @@
           Here are some quotes that can help make your slide more memorable";
         
         for (i=0; i<quotes.length; i++) {
-          text += "<button class='quote'>" + quotes[i] + "</button>";
+          text += "<button class='quote blue accent-2 waves-light " +
+              "waves-effect'>" + quotes[i] + "</button>";
         }
         text += "</div>";
         $('#ideabox').append(text);

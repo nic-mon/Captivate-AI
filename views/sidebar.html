@@ -3,10 +3,19 @@
     <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
 
     <?!= include('views/sidebar.css'); ?>
+    <!-- Materialize icons -->
+    <link rel = "stylesheet"
+          href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Compiled and minified Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
   </head>
-  <body>
+  <body class="teal accent-1">
   
-    <div id='purpose'>
+    <div class="center-align" id='purpose'>
       <div class='purpose-item'>
         <div id='time'></div>
         <div class='purpose-label'>MINUTES</div>
@@ -22,14 +31,14 @@
     </div>
     
     <div class='page' id='ideas'>
-      <h2> Magic Ideas </h2>
+      <h4 class="center-align"> Magic Ideas </h4>
       <div id='ideabox'>
         
       </div>
     </div>
 
     <div class='page' id='home'>
-      <h2> Home </h2>
+      <h4 class="center-align"> Home </h4>
         <div class='suggestion'>
           <div class='label'>SUGGESTION</div>
           There is too much text on this slide. Consider selecting a picture you would like to replace it with
@@ -37,9 +46,9 @@
       <div class='idea'>
           <div class='label'>FONTS</div>
           <div id='fontbox'>
-            <button class='font' id='TNR'>Times New Roman</button>
-            <button class='font' id='athelas'>Athelas</button>
-            <button class='font' id='georgia'>Georgia</button>
+            <button class='blue accent-2 waves-light font' id='TNR'>Times New Roman</button>
+            <button class='blue accent-2 waves-light waves-effect font' id='athelas'>Athelas</button>
+            <button class='blue accent-2 waves-light waves-effect font' id='georgia'>Georgia</button>
           </div>
         </div>
       <div class='idea'>
@@ -50,14 +59,14 @@
     </div>
     
     <div class='page' id='fixes'>
-      <h2> Quick Fixes </h2>
+      <h4 class="center-align"> Quick Fixes </h4>
       <div id='fixbox'>
         
       </div>
     </div>
   
     <div class='page' id='brainstorm'>
-      <h2> Brainstorm </h2>
+      <h4 class="center-align"> Brainstorm </h4>
           <!-- brainstorm session in the sidebar -->
           <form id='brainstorm_form' method="post" onsubmit="submitBrainstorm(this)">
             Name: <input type="text" name="name" /><br/>
@@ -68,12 +77,16 @@
     </div>      
   
     <footer>
-      <div><button class='navitem center' id='brainstorm_nav'> Brainstorm </button></div>
+      <div class='center-align'>
+        <button class='blue accent-2 navitem btn' id='brainstorm_nav'> Brainstorm </button>
+      </div>
       <br>
-      <button class='navitem' id='ideanav'> Ideas </button>
-      <button class='navitem' id='homenav'> Home </button>
-      <button class='navitem' id='fixnav'> Fixes </button>
-      
+      <div class="center-align">
+
+          <button class='blue accent-2 waves-light navitem btn' id='ideanav'> Ideas </button>
+          <button class='blue accent-2 waves-light navitem btn-large' id='homenav'> Home </button>
+          <button class='blue accent-2 waves-light navitem btn' id='fixnav'> Fixes </button>
+      </div>
     </footer>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
