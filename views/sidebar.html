@@ -38,7 +38,7 @@
     </div>
 
     <div class='page' id='home'>
-      <h2> Home </h2>
+      <h4 class="center-align"> Home </h4>
         <div class='suggestion'>
           <div class='label'>SUGGESTION</div>
           There is too much text on this slide. Consider selecting a picture you would like to replace it with
@@ -46,7 +46,7 @@
       <div class='idea'>
           <div class='label'>FONTS</div>
           <div id='fontbox'>
-            <button class='blue accent-2 waves-light font btn' id='TNR'>Times New Roman</button>
+            <button class='blue accent-2 waves-light font' id='TNR'>Times New Roman</button>
             <button class='blue accent-2 waves-light waves-effect font' id='athelas'>Athelas</button>
             <button class='blue accent-2 waves-light waves-effect font' id='georgia'>Georgia</button>
           </div>
@@ -59,14 +59,14 @@
     </div>
     
     <div class='page' id='fixes'>
-      <h2> Quick Fixes </h2>
+      <h4 class="center-align"> Quick Fixes </h4>
       <div id='fixbox'>
         
       </div>
     </div>
   
     <div class='page' id='brainstorm'>
-      <h2> Brainstorm </h2>
+      <h4 class="center-align"> Brainstorm </h4>
           <!-- brainstorm session in the sidebar -->
           <form id='brainstorm_form' method="post" onsubmit="submitBrainstorm(this)">
             Name: <input type="text" name="name" /><br/>
@@ -81,10 +81,12 @@
         <button class='blue accent-2 navitem btn' id='brainstorm_nav'> Brainstorm </button>
       </div>
       <br>
-      <button class='blue accent-2 waves-light navitem btn' id='ideanav'> Ideas </button>
-      <button class='blue accent-2 waves-light navitem btn-large' id='homenav'> Home </button>
-      <button class='blue accent-2 waves-light navitem btn' id='fixnav'> Fixes </button>
-      
+      <div class="center-align">
+
+          <button class='blue accent-2 waves-light navitem btn' id='ideanav'> Ideas </button>
+          <button class='blue accent-2 waves-light navitem btn-large' id='homenav'> Home </button>
+          <button class='blue accent-2 waves-light navitem btn' id='fixnav'> Fixes </button>
+      </div>
     </footer>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
