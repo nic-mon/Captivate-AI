@@ -68,12 +68,37 @@
     <div class='page' id='brainstorm'>
       <h4 class="center-align"> Brainstorm </h4>
           <!-- brainstorm session in the sidebar -->
+        <div class="col s12">
           <form id='brainstorm_form' method="post" onsubmit="submitBrainstorm(this)">
-            Name: <input type="text" name="name" /><br/>
-            Brainstorm:<br/>
-            <textarea name="bstorm"></textarea><br/>
-            <input type="submit" value="Submit" />
+
+            <!--Name: <input type="text" name="name" /><br/>-->
+            <div class="row">
+              <div class="input-field col s11">
+                <i class="material-icons prefix">person</i>
+                <input id="user_name" type="text" class="validate">
+                <label for="user_name">First Name</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s11">
+                <i class="material-icons prefix">create</i>
+                <textarea id="textarea1" class="materialize-textarea">For example,
+                  We must learn to protect the Earth's environment. Here are some easy ways to remember to recycle and compost your goods.
+                </textarea>
+                <label for="textarea1"> Write/List things to talk about...</label>
+              </div>
+            </div>
+
+            <!--<textarea name="bstorm"></textarea><br/>-->
+            <div class="row">
+              <div class="center-align">
+                <a class="btn blue accent-2 waves-light waves-effect">Submit</a>
+              </div>
+            </div>
+
+            <!--<input type="submit" value="Submit" />-->
           </form>
+        </div>
     </div>      
   
     <footer>
