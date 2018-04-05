@@ -64,7 +64,7 @@ function get_data() {
   // data = [purpose_data, idea_data, fix_data]
   purpose_data = ['45', 'to pursuade', 'stakeholders'];
   fonts = ['Times New Roman', 'Athelas', 'Georgia'];
-  quotes = ['"Don\'t cry because it\'s over, smile because it happened." -Dr. Seuss','"Two things are infinite: the universe and human stupidity; and I\'m not sure about the universe." -Albert Einstein'];
+  quotes = readQuotes();
   idea_data = [fonts, quotes];
   fix_data = ['The information on this slide seems redundant. Consider deleting the slide from your presentation.',
               'There is too much text on this slide. Consider selecting a picture you would like to replace it with',
