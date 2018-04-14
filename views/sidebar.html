@@ -13,6 +13,62 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
   </head>
+  <script>
+      // Prevent forms from submitting.
+      function preventFormSubmit() {
+          var forms = document.querySelectorAll('form');
+          for (var i = 0; i < forms.length; i++) {
+              forms[i].addEventListener('submit', function(event) {
+                  event.preventDefault();
+              });
+          }
+      }
+      window.addEventListener('load', preventFormSubmit);
+      function handleFormSubmit(formObject) {
+          google.script.run.withSuccessHandler(updateUrl).processForm(formObject);
+      }
+
+      // function updateUrl(url) {
+      //     var div = document.getElementById('output');
+      //     div.innerHTML = '<a href="' + url + '">Got it!</a>';
+      // }
+      // function submitBrainstorm(formObject) {
+      //     google.script.run.withSuccessHandler(updateDiv).processBrainstormUsingForm(formObject);
+      // }
+
+      function submitBrainstormToImages2(formObject) {
+          google.script.run
+          // on success of first
+              .withSuccessHandler(updateDivWithImages).processBrainstormUsingForm(formObject);
+      }
+
+      //update div based on results from images and NLP APIs
+      function updateDivWithImages(imgs) {
+          //Logger.log(imgs); no longer in this part of the script
+          console.log(imgs);
+          console.log("After imgs API returns and after I parse the Json, I am updating the div");
+          for (var i = 0; i < imgs.length; i++) {
+              // call images api and append a corresponding div
+              // need jquery knowledge to resize these images
+              if (imgs[i].length > 0){
+                  // checks to see if src link is not the empty string
+                  // I made the url be an empty string if the search for a keyword is not found in
+                  // the websites.
+                  $('#output').append('<img onclick="insertImage(this)" src="' + imgs[i] + '" width="78px" height="78px"/>');
+              }
+          }
+      }
+
+      function insertImage(img) {
+          //google.script.run.get_current_page();// this works
+          // try inserting an image
+          google.script.run.insert_image(img.src, 0, 0, 200, 200);
+          //currentPage.insertImage(img.src,0,0,500,500);
+          console.log(img.src);
+          console.log("Image clicked.");
+      }
+  </script>
+
   <body class="white">
   
     <div class="center-align" id='purpose'>
@@ -69,34 +125,24 @@
       <h4 class="center-align"> Brainstorm </h4>
           <!-- brainstorm session in the sidebar -->
         <div class="col s12">
-          <form id='brainstorm_form' method="post" onsubmit="submitBrainstorm(this)">
 
-            <!--Name: <input type="text" name="name" /><br/>-->
-            <div class="row">
-              <div class="input-field col s11">
-                <i class="material-icons prefix">person</i>
-                <input id="user_name" type="text" class="validate">
-                <label for="user_name">First Name</label>
+          <!-- brainstorm session in the sidebar -->
+          <form id='brainstorm_form2' method="post" onsubmit="submitBrainstormToImages2(this)">
+            <!--Name: <input label="name" type="text" name="name" /><br/>-->
+            Brainstorm:<br/>
+            <div id="r" class="row">
+              <div id="inpt" class="input-field col s11">
+              <i class="material-icons prefix">create</i>
+              <textarea class="materialize-textarea" label="brainstorm" name="brainstorm">I prepared healthy snacks for my flight to Los Angeles. I ate apples and bananas with peanut butter.
+                </textarea><br/>
               </div>
             </div>
-            <div class="row">
-              <div class="input-field col s11">
-                <i class="material-icons prefix">create</i>
-                <textarea id="textarea1" class="materialize-textarea">We must learn to protect the Earth's environment. Here are some easy ways to remember to recycle and compost your goods.
-                </textarea>
-                <label for="textarea1"> Write or List things to talk about...</label>
-              </div>
-            </div>
-
-            <!--<textarea name="bstorm"></textarea><br/>-->
-            <div class="row">
-              <div class="center-align">
-                <a class="btn blue accent-2 waves-light waves-effect">Submit</a>
-              </div>
-            </div>
-
-            <!--<input type="submit" value="Submit" />-->
+            <div class="center-align white-text"><input class="btn green accent-2 waves-light waves-effect white-text" type="submit" value="Submit" /></div>
+            <!--<a class="btn blue accent-2 waves-light waves-effect" type="submit">Submit</a>-->
           </form>
+
+          <br><br>
+          <div id="output"></div>
         </div>
     </div>      
   

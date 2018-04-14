@@ -16,23 +16,31 @@ function showSidebar() {
  * Brainstorm form submission
  */
 
-// Prevent forms from submitting.
-function submitBrainstorm(formObject) {
-  google.script.run.withSuccessHandler(updateDiv).processBrainstormUsingForm(formObject);
-}
 
-//update div based on the results from the NLP API
-function updateDiv(data) {
-  var div = document.getElementById('output');
-  div.innerHTML = data;
-}
-
-//update div based on results from images and NLP APIs
-function updateDivWithImages(imgs) {
-  for (var i = 0; i < imgs.length; i++) {
-     // call images api and append a corresponding div
-     // need jquery knowledge to resize these images
-  }
+/*
+ * Function to process Form input from the client side
+ *  Has 2 function calls: 1 to NLP API and 1 to Image Search API
+ */
+function processBrainstormUsingForm(formObject) {
+    Logger.log("I am here!!! Process away!");
+    // blob will be encoded as a string
+    Logger.log(formObject);
+    var formBlob = formObject.brainstorm;
+    Logger.log(formBlob);
+    // returns keywords
+    var keywords = analyzeText(formBlob);
+    Logger.log(keywords);
+    //keywords = ["banana"];
+    var urls = [];
+    Logger.log("I am here again!!!");
+    keywords.forEach(function(query) {
+        Logger.log(query);
+        var result = searchImages(query);
+        urls.push(result);
+    });
+    Logger.log(urls);
+    return urls;
+    //return "https://picjumbo.com/wp-content/uploads/fresh-bananas-on-glossy-table-and-red-background_free_stock_photos_picjumbo_DSC08378.jpg";
 }
 
 
@@ -82,6 +90,8 @@ function get_notifications() {
     
   }
 }
+
+// getters
   
 // get functions 
 function get_masters() {
@@ -94,6 +104,15 @@ function get_layouts() {
 
 function get_slides() {
   return SlidesApp.getActivePresentation().getSlides();
+}
+
+function get_current_page() {
+    return SlidesApp.getActivePresentation().getSelection().getCurrentPage();
+}
+
+function insert_image(imgSrc, left, right, width, height) {
+    var page = SlidesApp.getActivePresentation().getSelection().getCurrentPage();
+    page.insertImage(imgSrc, left, right, width, height);
 }
 
 function get_page_elements() {
