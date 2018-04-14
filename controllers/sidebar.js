@@ -16,24 +16,6 @@ function showSidebar() {
  * Brainstorm form submission
  */
 
-// // Prevent forms from submitting.
-// function submitBrainstorm(formObject) {
-//   google.script.run.withSuccessHandler(updateDiv).processBrainstormUsingForm(formObject);
-// }
-
-//update div based on the results from the NLP API
-// function updateDiv(data) {
-//   var div = document.getElementById('output');
-//   div.innerHTML = data;
-// }
-
-//update div based on results from images and NLP APIs
-// function updateDivWithImages(imgs) {
-//   for (var i = 0; i < imgs.length; i++) {
-//      // call images api and append a corresponding div
-//      // need jquery knowledge to resize these images
-//   }
-// }
 
 /*
  * Function to process Form input from the client side
@@ -108,6 +90,8 @@ function get_notifications() {
     
   }
 }
+
+// getters
   
 // get functions 
 function get_masters() {
@@ -124,6 +108,11 @@ function get_slides() {
 
 function get_current_page() {
     return SlidesApp.getActivePresentation().getSelection().getCurrentPage();
+}
+
+function insert_image(imgSrc, left, right, width, height) {
+    var page = SlidesApp.getActivePresentation().getSelection().getCurrentPage();
+    page.insertImage(imgSrc, left, right, width, height);
 }
 
 function get_page_elements() {

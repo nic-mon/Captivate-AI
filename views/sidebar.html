@@ -58,6 +58,15 @@
               }
           }
       }
+
+      function insertImage(img) {
+          //google.script.run.get_current_page();// this works
+          // try inserting an image
+          google.script.run.insert_image(img.src, 0, 0, 100, 100);
+          //currentPage.insertImage(img.src,0,0,500,500);
+          console.log(img.src);
+          console.log("Image clicked.");
+      }
   </script>
 
   <body class="white">
