@@ -122,6 +122,10 @@ function get_slides() {
   return SlidesApp.getActivePresentation().getSlides();
 }
 
+function get_current_page() {
+    return SlidesApp.getActivePresentation().getSelection().getCurrentPage();
+}
+
 function get_page_elements() {
   elements = [];
   slides = SlidesApp.getActivePresentation().getSlides();
