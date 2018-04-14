@@ -126,6 +126,7 @@
                 <!--<label for="user_name">First Name</label>-->
               <!--</div>-->
             <!--</div>-->
+
             <!--<div id="r" class="row">-->
               <!--<div id="inpt" class="input-field col s11">-->
                 <!--<i class="material-icons prefix">create</i>-->
@@ -149,8 +150,14 @@
           <form id='brainstorm_form2' method="post" onsubmit="submitBrainstormToImages2(this)">
             <!--Name: <input label="name" type="text" name="name" /><br/>-->
             Brainstorm:<br/>
-            <textarea label="brainstorm" name="brainstorm"></textarea><br/>
-            <input class="btn blue accent-2 waves-light waves-effect" type="submit" value="Submit" />
+            <div id="r" class="row">
+              <div id="inpt" class="input-field col s11">
+              <i class="material-icons prefix">create</i>
+              <textarea class="materialize-textarea" label="brainstorm" name="brainstorm"></textarea><br/>
+              </div>
+            </div>
+            <input class="btn blue accent-2 waves-light waves-effect white-text" type="submit" value="Submit" />
+            <!--<a class="btn blue accent-2 waves-light waves-effect" type="submit">Submit</a>-->
           </form>
 
           <br><br>
