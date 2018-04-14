@@ -133,5 +133,24 @@
           <div class='label'>SUGGESTION</div>\
           " + fix + "</div>";
         $('#fixbox').append(text);     
-      } 
+      }
+
+    //////////// brainstorm to suggested image
+    function get_current_page() {
+        return SlidesApp.getActivePresentation().getSelection().getCurrentPage();
+    }
+    function insert(imgNode, currPage) {
+        console.log("In the insert func");
+        //currPage.insertImage(imgNode.src, 0, 0, 500, 500);
+    }
+    function insertImage(imgNode) {
+        // currently get current page returns null
+        console.log(get_current_page());
+        google.script.run
+        // on success of first
+            .withSuccessHandler(insert).get_current_page();
+        //currentPage.insertImage(img.src,0,0,500,500);
+        console.log(imgNode.src);
+        console.log("Image clicked.");
+    }
 </script>
