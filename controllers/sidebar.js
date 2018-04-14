@@ -42,7 +42,9 @@ function showSidebar() {
 function processBrainstormUsingForm(formObject) {
     Logger.log("I am here!!! Process away!");
     // blob will be encoded as a string
+    Logger.log(formObject);
     var formBlob = formObject.brainstorm;
+    Logger.log(formBlob);
     // returns keywords
     var keywords = analyzeText(formBlob);
     Logger.log(keywords);
