@@ -129,7 +129,6 @@
           <!-- brainstorm session in the sidebar -->
           <form id='brainstorm_form2' method="post" onsubmit="submitBrainstormToImages2(this)">
             <!--Name: <input label="name" type="text" name="name" /><br/>-->
-            Brainstorm:<br/>
             <div id="r" class="row">
               <div id="inpt" class="input-field col s11">
               <i class="material-icons prefix">create</i>
@@ -145,19 +144,21 @@
           <div id="output"></div>
         </div>
     </div>      
-  
-    <footer>
-      <div class='center-align'>
-        <button class='blue accent-2 navitem btn' id='brainstorm_nav'> Brainstorm </button>
-      </div>
-      <br>
-      <div class="center-align">
 
-          <button class='blue accent-2 waves-light navitem btn' id='ideanav'> Ideas </button>
-          <button class='blue accent-2 waves-light navitem btn-large' id='homenav'> Home </button>
-          <button class='blue accent-2 waves-light navitem btn' id='fixnav'> Fixes </button>
-      </div>
-    </footer>
+    <div>
+      <footer>
+        <div class='center-align'>
+          <button class='blue accent-2 navitem btn' id='brainstorm_nav'> Brainstorm </button>
+        </div>
+        <br>
+        <div class="center-align">
+
+            <button class='blue accent-2 waves-light navitem btn' id='ideanav'> Ideas </button>
+            <button class='blue accent-2 waves-light navitem btn-large' id='homenav'> Home </button>
+            <button class='blue accent-2 waves-light navitem btn' id='fixnav'> Fixes </button>
+        </div>
+      </footer>
+    </div>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <?!= include('jquery/sidebar.js'); ?>
