@@ -24,8 +24,8 @@ function onOpen(e) {
     .addSeparator()
     .addItem('In-slide Suggestions', 'showSidebar')
     .addSeparator()
-    .addItem('Brainstorm', 'askQuestions')
-    .addSeparator()
+    // .addItem('Brainstorm', 'askQuestions')
+    // .addSeparator()
     .addItem('About CaptivateAI', 'openDialog')
     .addToUi();
 }
