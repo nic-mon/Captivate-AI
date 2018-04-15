@@ -8,5 +8,5 @@ function userSurvey() {
     var html = HtmlService.createTemplateFromFile('views/survey_start')
         .evaluate();
     SlidesApp.getUi()
-        .showModalDialog(html, 'Welcome');
+        .showModalDialog(html, 'A few questions to help you get started');
 }

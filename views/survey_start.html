@@ -1,4 +1,5 @@
-<?!= include('views/about.css'); ?>
+<?!= include('views/survey_start.css'); ?>
+<?!= include('jquery/survey_start.js'); ?>
 <!-- Materialize icons -->
 <link rel = "stylesheet"
       href = "https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -8,19 +9,141 @@
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 
+<!-- Compiled and minified JQuery -->
 <div class="main">
-    <div class="center-align blue accent-2">
-        <h5 class="white-text"> A few questions to help you get started </h5>
+    <div class="container">
+        <div class="row c10">
+            <span class="float left-align">Answering these questions will help you create a more impactful presentation in less time</span>
+        </div>
     </div>
     <ul>
-        <li>1. Who is your audience? </li>
-        <li>2. How much time do you have to present? </li>
-        <li>3. What is your goal? </li>
-        <li>4. If this presentation succeeds, what would you gain? </li>
+        <li><b>1. Who is your audience?</b>
+
+            <form action="#">
+                <p>
+                    <label>
+                        <input name="group1" type="radio" checked />
+                        <span class="float black-text">Students</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="group1" type="radio" />
+                        <span class="black-text">Business Stakeholders</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="group1" type="radio"  />
+                        <span class="black-text">Academia</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="group1" type="radio" />
+                        <span class="black-text">Other</span>
+                        <input id="other1" type="text" class="validate">
+                        <label for="other1">Other (Please specify)</label>
+                    </label>
+                </p>
+            </form>
+        </li>
+        <li>2. How much time do you have to present?
+            <form action="#">
+                <p>
+                    <label>
+                        <input name="group1" type="radio" checked />
+                        <span class="black-text">5 minutes</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="group1" type="radio" />
+                        <span class="black-text">10-15 minutes</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="group1" type="radio"  />
+                        <span class="black-text">30 minutes</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="group1" type="radio" />
+                        <span class="black-text">Other</span>
+                    </label>
+                    <input id="other2" type="text" class="validate">
+                    <label for="other2">Other (Please specify)</label>
+                </p>
+            </form>
+        </li>
+        <li>3. What is your goal?
+            <form action="#">
+                <p>
+                    <label>
+                        <input name="group1" type="radio" checked />
+                        <span class="black-text">To convince the audience</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="group1" type="radio" />
+                        <span class="black-text">To sell something</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="group1" type="radio"  />
+                        <span class="black-text">To deliver a lecture</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="group1" type="radio" />
+                        <span class="black-text">Other</span>
+                    </label>
+                    <input id="other3" type="text" class="validate">
+                    <label for="other3">Other (Please specify)</label>
+                </p>
+            </form>
+        </li>
+        <li>4. If this presentation succeeds, what would you gain?
+            <form action="#">
+                <p>
+                    <label>
+                        <input name="group1" type="radio" checked />
+                        <span class="black-text">I would win a competition</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="group1" type="radio" />
+                        <span class="black-text">I might get investment for my product</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="group1" type="radio"  />
+                        <span class="black-text">I might get a promotion</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input id="other4" name="group1" type="radio"/>
+                        <span class="black-text">Other</span>
+                    </label>
+                    <input id="spec4" type="text" class="validate">
+                    <label for="spec4">Other (Please specify)</label>
+                </p>
+            </form>
+        </li>
+        <input class="btn green accent-2 waves-effect waves-light" type="submit" value="submit"
+            onclick="google.script.host.close()"/>
     </ul>
 </div>
 
 <div class="side">
     <a class="waves-light waves-effect btn-small blue accent-2"
-            onclick="google.script.host.close()" ><i class="material-icons right">cancel</i>Close</a>
+            onclick="google.script.host.close()" >Close<i class="material-icons right">cancel</i></a>
 </div>
