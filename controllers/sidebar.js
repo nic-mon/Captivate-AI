@@ -70,6 +70,7 @@ function word_to_img() {
 
 function get_data() {
   // data = [purpose_data, idea_data, fix_data]
+  //  top_toolbar = readPurpose();
   purpose_data = ['45', 'to pursuade', 'stakeholders'];
   fonts = ['Times New Roman', 'Athelas', 'Georgia'];
   //quotes = ['"Don\'t cry because it\'s over, smile because it happened." -Dr. Seuss','"Two things are infinite: the universe and human stupidity; and I\'m not sure about the universe." -Albert Einstein'];
