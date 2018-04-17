@@ -46,27 +46,59 @@ function processBrainstormUsingForm(formObject) {
 
 /// my functions below
 
-function doGet(request) {
-  var data = get_counts();
-  var result = {
-    n_words: data[0],
-    n_imgs: data[1]
-  };
-  return ContentService.createTextOutput(JSON.stringify(result))
-    .setMimeType(ContentService.MimeType.JSON);
+// checkers/counters built to work on one slide object
+
+function check_for_inconsistancies(slide) {
+  // checks for use of multiple fonts/sizes within one textbox
+  // return True if there are inconsistancies in the slide
+  // different fonts/sizes in different text boxes are ok
+  texts = getElementTexts(slide.getPageElements());
+  var flag = false;
+  texts.forEach(function(text) {
+      if(text.getTextStyle().getFontFamily() == null) {flag = true;}  // font family of textrange, null if multiple
+      if(text.getTextStyle().getFontSize() == null) {flag = true;} // font size of textrange, null if multiple
+  });
+  return flag
 }
 
-function word_to_img() {
-  var slide = SlidesApp.getActivePresentation().getSlides()[0];
+function count_fonts_used(slide) {
   texts = getElementTexts(slide.getPageElements());
-  var text = '';
-  for (var x = 0; x < texts.length; ++x) {
-    text = text.concat(texts[x].asString());
-  }
-  num_words = text.split(" ").length;
-  num_imgs = slide.getImages().length;
-  return [num_words, num_imgs];
+  var fonts = []
+  texts.forEach(function(text) {
+    fonts.push(text.getTextStyle().getFontFamily());  // font family of textrange, null if multiple
+  });
+  return fonts
 }
+
+function count_fontsizes_used(slide) {
+  //count # fonts and sizes
+  texts = getElementTexts(slide.getPageElements());
+  var sizes = []
+  texts.forEach(function(text) {
+    sizes.push(text.getTextStyle().getFontSize());  // font family of textrange, null if multiple
+  });
+  return sizes
+}
+
+function count_text_lengths(slide) {
+  texts = getElementTexts(slide.getPageElements());
+  var lengths = []
+  texts.forEach(function(text) {
+    lengths.push(text.getLength()); 
+  });
+  return lengths
+}
+
+function count_imgs_sizes(slide) {
+  imgs = slide.getImages();
+  sizes = []
+  imgs.forEach(function(img) {
+    sizes.push([img.getHeight(), img.getWidth()])
+  })
+  return sizes
+}
+
+
 
 function get_data() {
   // data = [purpose_data, idea_data, fix_data]
@@ -82,16 +114,6 @@ function get_data() {
   return [purpose_data, idea_data, fix_data]
 }
 
-function get_notifications() {
-  data = word_to_img();
-  num_words = data[0];
-  num_img = data[1];
-  if(num_img == 0 && num_words >=25) {
-    
-  }
-}
-
-// getters
   
 // get functions 
 function get_masters() {
