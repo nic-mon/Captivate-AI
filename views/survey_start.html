@@ -138,8 +138,15 @@
                 </p>
             </form>
         </li>
+        <script>
+            function submitStartSurvey() {
+                google.script.run.showSidebar();
+                google.script.host.close();
+            }
+
+        </script>
         <input class="btn green accent-2 waves-effect waves-light" type="submit" value="submit"
-            onclick="google.script.host.close()"/>
+            onclick="submitStartSurvey()"/>
     </ul>
 </div>
 
