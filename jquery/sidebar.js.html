@@ -106,12 +106,14 @@
       }
       
       function fill_fixes(fix_data) {
+          console.log(fix_data);
         for(i = 0; i < fix_data.length; i++) {
           add_fix(fix_data[i]);
         }
       }
       
       function add_fix(fix) {
+          console.log(fix);
         text = "<div class='suggestion'>\
           <div class='label'>SLIDE</div>\
           <div class='label'>SUGGESTION</div>\
