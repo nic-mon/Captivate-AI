@@ -46,26 +46,181 @@ function processBrainstormUsingForm(formObject) {
 
 /// my functions below
 
-function doGet(request) {
-  var data = get_counts();
-  var result = {
-    n_words: data[0],
-    n_imgs: data[1]
-  };
-  return ContentService.createTextOutput(JSON.stringify(result))
-    .setMimeType(ContentService.MimeType.JSON);
+// checkers/counters built to work on one slide object
+// more efficient counters (used)
+function check_texts(slide) {
+  texts = getElementTexts(slide.getPageElements());
+  var results = [];
+  for(i=0; i < texts.length; i++) {
+    var result = {};
+    result.font = texts[i].getTextStyle().getFontFamily();
+    result.fontsize = texts[i].getTextStyle().getFontSize();
+    result.textlength = texts[i].getLength();
+    results.push(result);
+  }
+  return results
 }
 
-function word_to_img() {
-  var slide = SlidesApp.getActivePresentation().getSlides()[0];
-  texts = getElementTexts(slide.getPageElements());
-  var text = '';
-  for (var x = 0; x < texts.length; ++x) {
-    text = text.concat(texts[x].asString());
+function count_imgs_sizes(slide) {
+  imgs = slide.getImages();
+  sizes = [];
+  for(i=0; i < imgs.length; i++) {
+    sizes.push([imgs[i].getHeight(), imgs[i].getWidth()]);
   }
-  num_words = text.split(" ").length;
-  num_imgs = slide.getImages().length;
-  return [num_words, num_imgs];
+  return sizes
+}
+
+// presentation / current slide checking fucnctions
+//   (these use above functions)
+
+function check_presentation() {
+  var notifications = [];
+  var slides = SlidesApp.getActivePresentation().getSlides();
+  var font_inconsistancies = [];
+  var fontsize_inconsistancies = [];
+  var fonts = [];
+  var fontsizes = [];
+  // var lengths = [];
+  // var img_areas = [];
+  for(i=0; i < slides.length; i++) {
+    var results = check_texts(slides[i]);
+    var img_sizes = count_imgs_sizes(slides[i]);
+    var slide_fonts = [];
+    var slide_fontsizes = [];
+    var slide_textlengths = [];
+    for(j=0; j < results.length; j++) {
+      if (results[j].font == null) { font_inconsistancies.push(i); }
+      else { slide_fonts.push(results[j].font); }
+      if (results[j].fontsize == null) { font_inconsistancies.push(i); }
+      else { slide_fontsizes.push(results[j].fontsize); }
+      slide_textlengths.push(results[j].textlength);
+    }
+    // more than 2 fonts or fontsizes on one slide notification
+    if (slide_fonts.length > 2 ) { notifications.push('You are using '+slide_fonts.length+' fonts on slide '+(i+1)+'.  Consider using one or two max.'); }
+    if (slide_fontsizes.length > 2 ) { notifications.push('You are using '+slide_fontsizes.length+' fontsizes on slide '+(i+1)+'.  Consider using one or two max.'); }
+
+    // word to img ratio notification
+    var total_textarea = get_total_text_area(slide_textlengths, slide_fontsizes);
+    var total_imgarea = get_total_img_area(img_sizes);
+    if (total_imgarea > 0 &&  total_textarea/total_imgarea > 3) { notifications.push('You have too much text on slide '+(i+1)+'.  Consider replacing some text with images using our tool.'); }
+
+    fonts.push(slide_fonts);
+    fontsizes.push(slide_fontsizes);
+  }
+  if (font_inconsistancies.length > 0) {notifications.push(get_inc_notification_string(font_inconsistancies, 'font'));}
+  if (fontsize_inconsistancies.length > 0) {notifications.push(get_inc_notification_string(fontsize_inconsistancies, 'fontsize'));}
+  var fonts_used = dedupe_arr(fonts.flatten());
+  var fontsizes_used = dedup_arr(fontsizes.flatten());
+  if (fonts_used.length > 2) {notifications.push('You are using '+fonts_used.length+' different fonts in your presentation.  Consider using one or two max.');}
+  if (fontsizes_used.length > 2) {notifications.push('You are using '+fontsizes_used.length+' different fontsizes in your presentation.  Consider using one or two max.');}
+  return notifications
+}
+
+// not used
+function check_cur_slide() {
+  var cur_slide = SlidesApp.getActivePresentation().getSelection().getCurrentPage().asSlide();
+  var results = check_texts(cur_slide);
+  var img_sizes = count_imgs_sizes(cur_slide);
+  var notifications = [];
+
+}
+
+// helpers 
+function get_total_img_area(img_sizes) {
+  var total = 0;
+  for(i=0; i < img_sizes.length; i++) {
+    total = total + img_sizes[i][0]*img_sizes[i][1];
+  }
+  return total
+}
+
+function get_total_text_area(textlengths, fontsizes) {
+  var total_textarea = 0;
+  for(i = 0; i < textlengths.length; i++) {
+    total_textarea += fontsizes[i] * textlengths[i];
+  }
+  return total_textarea
+}
+
+function get_inc_notification_string(arr, type) {
+  var text = 'You have inconsistancies in ' + type + ' within slide';
+  if(arr.length > 1) { text += "s"; }
+  for(i=0; i < arr.length-1; i++) {
+    text += ' '+arr[i]+',';
+  }
+  text += ' '+arr[arr.length-1]+'. Consider using one or two ' + type + 's max.';
+  return text
+}
+
+// dedup array of strings ... maybe not efficient as can be
+function dedupe_arr(arr) {
+  var unique = [];
+  for(i=0; i < arr.length; i++) {
+    if(unique.indexOf(arr[i]) === -1) unique.push(arr[i]);
+  }
+  return unique
+}
+
+////////////////////
+//  Individual Counter functions (not used)
+////////////////////
+function check_for_inconsistancies(slide) {
+  // checks for use of multiple fonts/sizes within one textbox
+  // return True if there are inconsistancies in the slide
+  // different fonts/sizes in different text boxes are ok
+  texts = getElementTexts(slide.getPageElements());
+  var flag = false;
+  texts.forEach(function(text) {
+      if(text.getTextStyle().getFontFamily() == null) {flag = true;}  // font family of textrange, null if multiple
+      if(text.getTextStyle().getFontSize() == null) {flag = true;} // font size of textrange, null if multiple
+  });
+  return flag
+}
+
+function count_fonts_used(slide) {
+  texts = getElementTexts(slide.getPageElements());
+  var fonts = []
+  texts.forEach(function(text) {
+    fonts.push(text.getTextStyle().getFontFamily());  // font family of textrange, null if multiple
+  });
+  return fonts
+}
+
+function count_fontsizes_used(slide) {
+  //count # fonts and sizes
+  texts = getElementTexts(slide.getPageElements());
+  var sizes = []
+  texts.forEach(function(text) {
+    sizes.push(text.getTextStyle().getFontSize());  // font family of textrange, null if multiple
+  });
+  return sizes
+}
+
+function count_text_lengths(slide) {
+  texts = getElementTexts(slide.getPageElements());
+  var lengths = []
+  texts.forEach(function(text) {
+    lengths.push(text.getLength()); 
+  });
+  return lengths
+}
+///////////////////////
+
+// update functions
+function first_update() {
+
+}
+
+function get_ideas() { 
+  quotes = readQuotes();
+  fonts = ['Times New Roman', 'Athelas', 'Georgia'];
+  idea_data = [fonts, quotes];
+  return idea_data;
+}
+
+function get_purpose() {
+  var purpose_data = ['45', 'to pursuade', 'stakeholders'];
+  return purpose_data
 }
 
 function get_data() {
@@ -83,17 +238,6 @@ function get_data() {
   return [purpose_data, idea_data, fix_data]
 }
 
-function get_notifications() {
-  data = word_to_img();
-  num_words = data[0];
-  num_img = data[1];
-  if(num_img == 0 && num_words >=25) {
-    
-  }
-}
-
-// getters
-  
 // get functions 
 function get_masters() {
   return SlidesApp.getActivePresentation().getMasters();
@@ -108,7 +252,7 @@ function get_slides() {
 }
 
 function get_current_page() {
-    return SlidesApp.getActivePresentation().getSelection().getCurrentPage();
+  return SlidesApp.getActivePresentation().getSelection().getCurrentPage();
 }
 
 function insert_image(imgSrc, left, right, width, height) {
