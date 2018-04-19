@@ -29,32 +29,16 @@
     });
    //////////////////////////////
    
-   // font function
-    //$( ".font" ).click(function() {
-     // google.script.run.setFont($(this).text());
-    //});
     
     $(function() {
-      google.script.run.withSuccessHandler(fill).get_data();
-    });
-      
-    $(function() {
-      google.script.run.withSuccessHandler(log_layouts).get_layouts();
-      google.script.run.withSuccessHandler(log_layouts).get_page_elements();
+      google.script.run.withSuccessHandler(fill_goals).get_purpose();
+      google.script.run.withSuccessHandler(fill_fixes).check_presentation();
+      google.script.run.withSuccessHandler(fill_ideas).get_ideas();
     });
       
       function log_layouts(layouts) {
         console.log(layouts);
       }
-      function update_counts(data) {
-        num_words = data[0];
-        num_imgs = data[1];
-        
-        $('#wordcount').text(num_words);
-        $('#imgcount').text(num_imgs);
-        $('#ratio').text(num_words*1.0/num_imgs);
-      }
-      
       
       // filling functions 
       
