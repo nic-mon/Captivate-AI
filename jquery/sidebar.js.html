@@ -36,7 +36,11 @@ $(function() {
       $( "#brainstorm" ).show();
     });
    //////////////////////////////
-   
+
+$(function() {
+    // $("html, body").animate({ scrollTop: 0 }, "slow");
+    $('nav').css({"position": "fixed", "bottom":"0"});
+});
     
     $(function() {
       google.script.run.withSuccessHandler(fill_goals).get_purpose();
