@@ -28,14 +28,6 @@
           google.script.run.withSuccessHandler(updateUrl).processForm(formObject);
       }
 
-      // function updateUrl(url) {
-      //     var div = document.getElementById('output');
-      //     div.innerHTML = '<a href="' + url + '">Got it!</a>';
-      // }
-      // function submitBrainstorm(formObject) {
-      //     google.script.run.withSuccessHandler(updateDiv).processBrainstormUsingForm(formObject);
-      // }
-
       function submitBrainstormToImages2(formObject) {
           google.script.run
           // on success of first
@@ -120,7 +112,7 @@
 
     <div class='page' id='fixes'>
       <div class="container">
-        <h4 class="Title center-align"> Quick Fixes </h4>
+        <h4 class="Title"> Quick Fixes </h4>
       </div>
       <div id='fixbox'>
         
@@ -129,7 +121,9 @@
     </div>
   
     <div class='page' id='brainstorm'>
-      <h4 class="center-align"> Brainstorm </h4>
+      <div class="container">
+        <h4 class="Title"> Brainstorm </h4>
+      </div>
           <!-- brainstorm session in the sidebar -->
         <div class="col s12">
 
