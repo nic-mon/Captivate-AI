@@ -8,149 +8,165 @@
 
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-
 <!-- Compiled and minified JQuery -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!--<body onload="setupTime()">-->
+<body onload="google.script.run.createSurveyTable()">
 <div class="main">
     <div class="container">
         <div class="row c10">
             <span class="float left-align">Answering these questions will help you create a more impactful presentation in less time</span>
         </div>
     </div>
-    <ul>
-        <li><b>1. Who is your audience?</b>
 
-            <form action="#">
-                <p>
-                    <label>
-                        <input name="group1" type="radio" checked />
-                        <span class="float black-text">Students</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input name="group1" type="radio" />
-                        <span class="black-text">Business Stakeholders</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input name="group1" type="radio"  />
-                        <span class="black-text">Academia</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input name="group1" type="radio" />
-                        <span class="black-text">Other</span>
-                        <input id="other1" type="text" class="validate">
-                        <label for="other1">Other (Please specify)</label>
-                    </label>
-                </p>
-            </form>
-        </li>
-        <li>2. How much time do you have to present?
-            <form action="#">
-                <p>
-                    <label>
-                        <input name="group1" type="radio" checked />
-                        <span class="black-text">5 minutes</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input name="group1" type="radio" />
-                        <span class="black-text">10-15 minutes</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input name="group1" type="radio"  />
-                        <span class="black-text">30 minutes</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input name="group1" type="radio" />
-                        <span class="black-text">Other</span>
-                    </label>
-                    <input id="other2" type="text" class="validate">
-                    <label for="other2">Other (Please specify)</label>
-                </p>
-            </form>
-        </li>
-        <li>3. What is your goal?
-            <form action="#">
-                <p>
-                    <label>
-                        <input name="group1" type="radio" checked />
-                        <span class="black-text">To convince the audience</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input name="group1" type="radio" />
-                        <span class="black-text">To sell something</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input name="group1" type="radio"  />
-                        <span class="black-text">To deliver a lecture</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input name="group1" type="radio" />
-                        <span class="black-text">Other</span>
-                    </label>
-                    <input id="other3" type="text" class="validate">
-                    <label for="other3">Other (Please specify)</label>
-                </p>
-            </form>
-        </li>
-        <li>4. If this presentation succeeds, what would you gain?
-            <form action="#">
-                <p>
-                    <label>
-                        <input name="group1" type="radio" checked />
-                        <span class="black-text">I would win a competition</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input name="group1" type="radio" />
-                        <span class="black-text">I might get investment for my product</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input name="group1" type="radio"  />
-                        <span class="black-text">I might get a promotion</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input id="other4" name="group1" type="radio"/>
-                        <span class="black-text">Other</span>
-                    </label>
-                    <input id="spec4" type="text" class="validate">
-                    <label for="spec4">Other (Please specify)</label>
-                </p>
-            </form>
-        </li>
-        <script>
-            function submitStartSurvey() {
-                google.script.run.showSidebar();
-                google.script.host.close();
-            }
+    <form id="myform" name="myform2" action="#" onsubmit="submitStartSurvey(this)">
+        <div class="row" name="question">
+            <b>1. Who is your audience?</b>
+        </div>
+        <p>
+            <label>
+                <input onclick="$('#other1').hide()" id="students" name="group1" type="radio" checked />
+                <span id="students_answer" class="float black-text">Students</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input onclick="$('#other1').hide()" id="stakeholders" name="group1" type="radio" />
+                <span id="stakeholders_ans" class="black-text">Business Stakeholders</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input onclick="$('#other1').hide()" id="academia" name="group1" type="radio"  />
+                <span id="academia_ans" class="black-text">Academia</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input onclick="$('#other1').show()" name="group1" type="radio" />
+                <span class="black-text">Other (Please specify)</span>
+            </label>
+            <label id="other1" hidden>
+                <input id="spec1" type="text" class="validate">
+                <label for="spec1">Other (Please specify)</label>
+            </label>
+        </p>
 
-        </script>
-        <input class="btn green accent-2 waves-effect waves-light" type="submit" value="submit"
-            onclick="submitStartSurvey()"/>
-    </ul>
+        <!--<form>-->
+        <div class="row">
+            <b>2. How much time do you have to present?</b>
+        </div>
+        <div id="time">
+            <!--<select id="time_select" size="30">-->
+            <!--<option>47281</option>-->
+            <!--</select>-->
+            <p>
+                <label>
+                    <input id="10max" onclick="$('#other2').hide()" name="group2" type="radio" checked />
+                    <span id="10max_ans" class="black-text">5 to 10 minutes</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input id="15max" onclick="$('#other2').hide()" name="group2" type="radio" />
+                    <span id="15max_ans" class="black-text">10 to 15 minutes</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input id="30max" onclick="$('#other2').hide()" name="group2" type="radio"  />
+                    <span id="30max_ans" class="black-text">15 to 30 minutes</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input onclick="$('#other2').show()" name="group2" type="radio" />
+                    <span class="black-text">Other (Please specify a single number)</span>
+                </label>
+                <label id="other2" hidden>
+                    <input id="spec2" type="text" class="validate">
+                    <label for="spec2">Other (Please specify a number rounded to the nearest minute)</label>
+                </label>
+
+            </p>
+        </div>
+
+        <div class="row">
+            <b>3. What is your goal?</b>
+        </div>
+        <p>
+            <label>
+                <input id="convince" onclick="$('#other3').hide()" name="group3" type="radio" checked />
+                <span id="convince_ans" class="black-text">To convince the audience</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input id="sell" onclick="$('#other3').hide()" name="group3" type="radio" />
+                <span id="sell_ans" class="black-text">To sell something</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input id="deliver" onclick="$('#other3').hide()" name="group3" type="radio"  />
+                <span id="deliver_ans" class="black-text">To deliver a lecture</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input onclick="$('#other3').show()" name="group3" type="radio" />
+                <span class="black-text">Other (Please specify)</span>
+            </label>
+            <label id="other3" hidden>
+                <input id="spec3" type="text" class="validate">
+                <label for="spec3">Other (Please specify)</label>
+            </label>
+
+        </p>
+
+
+        <div class="row">
+            <b>4. If this presentation succeeds, what would you gain?</b>
+        </div>
+        <p>
+            <label>
+                <input id="win" onclick="$('#other4').hide()" name="group4" type="radio" checked />
+                <span id="win_ans" class="black-text">I would win a competition</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input id="invest" onclick="$('#other4').hide()" name="group4" type="radio" />
+                <span id="invest_ans" class="black-text">I might get investment for my product</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input id="promotion" onclick="$('#other4').hide()" name="group4" type="radio"  />
+                <span id="promotion_ans" class="black-text">I might get a promotion</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input onclick="$('#other4').show()" name="group4" type="radio" />
+                <span class="black-text">Other (Please specify)</span>
+            </label>
+            <label id="other4" hidden>
+                <input id="spec4" type="text" class="validate">
+                <label for="spec4">Other (Please specify)</label>
+            </label>
+
+        </p>
+        <br>
+        <input class="btn green accent-2 waves-effect waves-light" type="submit" value="submit" />
+        <!--onclick="submitStartSurvey(this)" />-->
+    </form>
+
 </div>
 
 <div class="side">
     <a class="waves-light waves-effect btn-small blue accent-2"
-            onclick="google.script.host.close()" >Close<i class="material-icons right">cancel</i></a>
+       onclick="google.script.host.close()" >Close<i class="material-icons right">cancel</i></a>
 </div>
+
+</body>
