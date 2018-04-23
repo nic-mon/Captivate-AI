@@ -127,7 +127,7 @@ function answerSurvey(aud, min, goal, gain) {
     else if (size == 1) {
         // var stmt = conn.prepareStatement('UPDATE survey '
         //     + 'SET audience=?, minutes=?, goal=?, gain=?');
-
+        // quick workaround:
         conn.createStatement().execute('DROP TABLE survey');
 
         conn.createStatement().execute('CREATE TABLE IF NOT EXISTS survey '
