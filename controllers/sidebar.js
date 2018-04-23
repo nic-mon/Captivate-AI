@@ -49,7 +49,6 @@ function processBrainstormUsingForm(formObject) {
 // checkers/counters built to work on one slide object
 // more efficient counters (used)
 function check_texts(slide) {
-  elements = slide.getPageElements();
   texts = getElementTexts(slide.getPageElements());
   var results = [];
   for(i=0; i < texts.length; i++) {
@@ -83,19 +82,20 @@ function check_presentation() {
   var fontsizes = [];
   // var lengths = [];
   // var img_areas = [];
-  for(i=0; i < slides.length; i++) {
-    var results = check_texts(slides[i]);
-    var img_sizes = count_imgs_sizes(slides[i]);
+  //for(i=0; i < slides.length; i++) {
+    slides.forEach(function(slide, i) {
+    var results = check_texts(slide);
+    var img_sizes = count_imgs_sizes(slide);
     var slide_fonts = [];
     var slide_fontsizes = [];
     var slide_textlengths = [];
-    for(j=0; j < results.length; j++) {
-      if (results[j].font == null) { font_inconsistancies.push(i); }
-      else { slide_fonts.push(results[j].font); }
-      if (results[j].fontsize == null) { font_inconsistancies.push(i); }
-      else { slide_fontsizes.push(results[j].fontsize); }
-      slide_textlengths.push(results[j].textlength);
-    }
+    results.forEach(function(result) {
+      if (result.font == null) { font_inconsistancies.push(i); }
+      else { slide_fonts.push(result.font); }
+      if (result.fontsize == null) { font_inconsistancies.push(i); }
+      else { slide_fontsizes.push(result.fontsize); }
+      slide_textlengths.push(result.textlength);
+    });
     // more than 2 fonts or fontsizes on one slide notification
     if (slide_fonts.length > 2 ) { notifications.push('You are using '+slide_fonts.length+' fonts on slide '+(i+1)+'.  Consider using one or two max.'); }
     if (slide_fontsizes.length > 2 ) { notifications.push('You are using '+slide_fontsizes.length+' fontsizes on slide '+(i+1)+'.  Consider using one or two max.'); }
@@ -107,11 +107,13 @@ function check_presentation() {
 
     fonts.push(slide_fonts);
     fontsizes.push(slide_fontsizes);
-  }
+  });
   if (font_inconsistancies.length > 0) {notifications.push(get_inc_notification_string(font_inconsistancies, 'font'));}
   if (fontsize_inconsistancies.length > 0) {notifications.push(get_inc_notification_string(fontsize_inconsistancies, 'fontsize'));}
-  var fonts_used = dedupe_arr(fonts.flatten());
-  var fontsizes_used = dedup_arr(fontsizes.flatten());
+  var fonts_used = dedupe_arr([].concat.apply([], fonts));
+  var fontsizes_used = dedupe_arr([].concat.apply([],fontsizes));
+    //var fonts_used = dedupe_arr(fonts.flatten());
+    //var fontsizes_used = dedupe_arr(fontsizes.flatten());
   if (fonts_used.length > 2) {notifications.push('You are using '+fonts_used.length+' different fonts in your presentation.  Consider using one or two max.');}
   if (fontsizes_used.length > 2) {notifications.push('You are using '+fontsizes_used.length+' different fontsizes in your presentation.  Consider using one or two max.');}
   return notifications
@@ -180,7 +182,7 @@ function check_for_inconsistancies(slide) {
 
 function count_fonts_used(slide) {
   texts = getElementTexts(slide.getPageElements());
-  var fonts = []
+  var fonts = [];
   texts.forEach(function(text) {
     fonts.push(text.getTextStyle().getFontFamily());  // font family of textrange, null if multiple
   });
@@ -190,7 +192,7 @@ function count_fonts_used(slide) {
 function count_fontsizes_used(slide) {
   //count # fonts and sizes
   texts = getElementTexts(slide.getPageElements());
-  var sizes = []
+  var sizes = [];
   texts.forEach(function(text) {
     sizes.push(text.getTextStyle().getFontSize());  // font family of textrange, null if multiple
   });
@@ -199,7 +201,7 @@ function count_fontsizes_used(slide) {
 
 function count_text_lengths(slide) {
   texts = getElementTexts(slide.getPageElements());
-  var lengths = []
+  var lengths = [];
   texts.forEach(function(text) {
     lengths.push(text.getLength()); 
   });
@@ -226,6 +228,7 @@ function get_purpose() {
 
 function get_data() {
   // data = [purpose_data, idea_data, fix_data]
+  //  top_toolbar = readPurpose();
   purpose_data = ['45', 'to pursuade', 'stakeholders'];
   fonts = ['Times New Roman', 'Athelas', 'Georgia'];
   //quotes = ['"Don\'t cry because it\'s over, smile because it happened." -Dr. Seuss','"Two things are infinite: the universe and human stupidity; and I\'m not sure about the universe." -Albert Einstein'];
@@ -299,7 +302,7 @@ function getElementTexts(elements) {
         switch (element.getPageElementType()) {
             case SlidesApp.PageElementType.GROUP:
                 element.asGroup().getChildren().forEach(function(child) {
-                    texts = texts.concat(getElementTexts(child));
+                    texts = texts.concat(getElementTexts([child]));
                 });
                 break;
             case SlidesApp.PageElementType.TABLE:

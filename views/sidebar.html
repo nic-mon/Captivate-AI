@@ -28,14 +28,6 @@
           google.script.run.withSuccessHandler(updateUrl).processForm(formObject);
       }
 
-      // function updateUrl(url) {
-      //     var div = document.getElementById('output');
-      //     div.innerHTML = '<a href="' + url + '">Got it!</a>';
-      // }
-      // function submitBrainstorm(formObject) {
-      //     google.script.run.withSuccessHandler(updateDiv).processBrainstormUsingForm(formObject);
-      // }
-
       function submitBrainstormToImages2(formObject) {
           google.script.run
           // on success of first
@@ -87,14 +79,18 @@
     </div>
     
     <div class='page' id='ideas'>
-      <h4 class="center-align"> Magic Ideas </h4>
+      <div class="container">
+        <h4 class="Title"> Magic Ideas </h4>
+      </div>
       <div id='ideabox'>
         
       </div>
     </div>
 
-    <div class='page' id='home'>
-      <h4 class="center-align"> Home </h4>
+    <div class='page' id='home' >
+      <div class="container">
+        <h4 class="Title"> Checklist </h4>
+      </div>
         <div class='suggestion'>
           <div class='label'>SUGGESTION</div>
           There is too much text on this slide. Consider selecting a picture you would like to replace it with
@@ -102,29 +98,34 @@
       <div class='idea'>
           <div class='label'>FONTS</div>
           <div id='fontbox'>
-            <button class='blue accent-2 waves-light font' id='TNR'>Times New Roman</button>
-            <button class='blue accent-2 waves-light waves-effect font' id='athelas'>Athelas</button>
-            <button class='blue accent-2 waves-light waves-effect font' id='georgia'>Georgia</button>
+            <button class='black waves-light font' id='TNR'>Times New Roman</button>
+            <button class='waves-light waves-effect font' id='athelas'>Athelas</button>
+            <button class='waves-light waves-effect font' id='georgia'>Georgia</button>
           </div>
         </div>
       <div class='idea'>
-          <div class='label'>Quotes</div>
+          <div class='label'>QUOTES</div>
           <button class='quote'>"Don't cry because it's over, smile because it happened." -Dr. Seuss</button>
           <button class='quote'>"Two things are infinite: the universe and human stupidity; and I'm not sure about the universe." -Albert Einstein</button>
         </div>
     </div>
-    
+
     <div class='page' id='fixes'>
-      <h4 class="center-align"> Quick Fixes </h4>
+      <div class="container">
+        <h4 class="Title"> Quick Fixes </h4>
+      </div>
       <div id='fixbox'>
         
       </div>
+      <br><br><br><br><br>
     </div>
   
     <div class='page' id='brainstorm'>
-      <h4 class="center-align"> Brainstorm </h4>
+      <div class="container">
+        <h4 class="Title"> Brainstorm </h4>
+      </div>
           <!-- brainstorm session in the sidebar -->
-        <div class="col s12">
+        <div class="col s12 container">
 
           <!-- brainstorm session in the sidebar -->
           <form id='brainstorm_form2' method="post" onsubmit="submitBrainstormToImages2(this)">
@@ -141,21 +142,46 @@
           </form>
 
           <br><br>
-          <div id="output"></div>
+          <div class="center-align" id="output"></div>
         </div>
-    </div>      
+    </div>
 
-    <div>
+    <div id="nav">
       <footer>
+        <!--<div class='center-align' style="position:absolute; float: none; bottom: 0px; z-index: 99999;">-->
         <div class='center-align'>
-          <button class='blue accent-2 navitem btn' id='brainstorm_nav'> Brainstorm </button>
+          <!--<a class='green accent-2 navitem btn black-text' id='brainstorm_nav'> Brainstorm </a>-->
         </div>
-        <br>
-        <div class="center-align">
-
-            <button class='blue accent-2 waves-light navitem btn' id='ideanav'> Ideas </button>
-            <button class='blue accent-2 waves-light navitem btn-large' id='homenav'> Home </button>
-            <button class='blue accent-2 waves-light navitem btn' id='fixnav'> Fixes </button>
+        <br><br><br>
+        <div class="white" id="navbar">
+          <br>
+          <div class="row center-align">
+              <a class="col s3 navtile" id='ideanav'>
+                <div class="img_size" >
+                  <img src="https://captivate-ai.herokuapp.com/static/images/icons/bulb.png" />
+                </div>
+                <div class='waves-light navitem light-green-text text-darken-4'> Ideas </div>
+              </a>
+              <a class="col s3 navtile" id='homenav'>
+                <div class="img_size">
+                  <img src="https://captivate-ai.herokuapp.com/static/images/icons/checklist.png" />
+                </div>
+                <div class='waves-light navitem light-green-text text-darken-4'> Checklist </div>
+              </a>
+              <a class="col s3 navtile" id='fixnav'>
+                <div class="img_size">
+                  <img src="https://captivate-ai.herokuapp.com/static/images/icons/wand.png" />
+                </div>
+                <div class='waves-light navitem light-green-text text-darken-4'> Fixes </div>
+              </a>
+              <a class="col s3 navtile" id='brainstorm_nav'>
+                <div class="img_size">
+                  <i class="material-icons blue-text text-accent-2 medium">image</i>
+                </div>
+                <div class='center-align navitem light-green-text text-darken-4'> Images </div>
+              </a>
+              
+          </div>
         </div>
       </footer>
     </div>

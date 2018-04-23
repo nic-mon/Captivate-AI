@@ -1,5 +1,13 @@
 <script>
 // Nav Bar functions
+
+$(function() {
+    $( "#fixes" ).hide();
+    $( "#home" ).hide();
+    $( "#brainstorm" ).hide();
+    $( "#ideas" ).show();
+});
+
     $( "#ideanav" ).click(function() {
       $( "#fixes" ).hide();
       $( "#home" ).hide();
@@ -28,7 +36,11 @@
       $( "#brainstorm" ).show();
     });
    //////////////////////////////
-   
+
+$(function() {
+    // $("html, body").animate({ scrollTop: 0 }, "slow");
+    $('#navbar').css({"position": "fixed", "bottom":"0"});
+});
     
     $(function() {
       google.script.run.withSuccessHandler(fill_goals).get_purpose();
@@ -56,13 +68,22 @@
       
       function fill_goals(goal_data) {
       // [time, purpose, audience]
+          // get variables from the user survey
         time = goal_data[0];
         purpose = goal_data[1];
         audience = goal_data[2];
-        
-        $('#time').text(time);
-        $('#goal').text(purpose);
-        $('#audience').text(audience);
+
+        // put them in their respective divs and style them
+          var time_text = "<span id='goal_time'>" + time + "\
+            </span>";
+          var goal_text = "<span class='goal_text'>" + purpose + "\
+            </span>";
+          var audience_text = "<span class='goal_text'>" + audience + "\
+            </span>";
+
+          $('#time').append(time_text);
+        $('#goal').append(goal_text);
+        $('#audience').append(audience_text);
       }
       
       function fill_ideas(idea_data) {
@@ -76,13 +97,14 @@
 
       function add_font_idea(fonts) {
         text = "<div class='idea'>\
-          <div class='label'>SLIDE</div>\
-          <div class='label'>IDEA</div>\
+          <div class='icon'>\
+          <img src='https://captivate-ai.herokuapp.com/static/images/icons/typography.png'>\
+          </img></div>\
           Here are some typefaces that are a better fit for the content you are presenting\
           <div id='fontbox'>";
           
         for (i=0; i<fonts.length; i++) {
-          text += "<button class='font grey lighten-2 waves-light waves-effect' style='font-family:"+fonts[i]+"'>"+fonts[i]+"</button>";
+          text += "<button class='font black lighten-2 waves-light waves-effect' style='font-family:"+fonts[i]+"'>"+fonts[i]+"</button>";
         }
         text += "</div></div>";
         $('#ideabox').append(text);
@@ -93,12 +115,14 @@
       
       function add_quote_idea(quotes) {
         text = "<div class='idea'>\
-          <div class='label'>SLIDE</div>\
-          <div class='label'>IDEA</div>\
-          Here are some quotes that can help make your slide more memorable";
+          <div class='icon'>\
+          <img src='https://captivate-ai.herokuapp.com/static/images/icons/quote.png'>\
+          </img>\
+          </div>\
+          Here are some quotes that can help make your presentation more memorable";
         
         for (i=0; i<quotes.length; i++) {
-          text += "<button class='quote blue accent-2 waves-light " +
+          text += "<button class='quote black lighten-2 waves-light " +
               "waves-effect'>" + quotes[i] + "</button>";
         }
         text += "</div>";
@@ -115,6 +139,7 @@
       }
       
       function add_fix(fix) {
+          console.log(fix);
         text = "<div class='suggestion'>\
           <div class='label'>SLIDE</div>\
           <div class='label'>SUGGESTION</div>\
