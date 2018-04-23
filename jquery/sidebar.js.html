@@ -42,11 +42,11 @@ $(function() {
     $('#navbar').css({"position": "fixed", "bottom":"0"});
 });
     
-    $(function() {
-      google.script.run.withSuccessHandler(fill_goals).get_purpose();
-      google.script.run.withSuccessHandler(fill_fixes).check_presentation();
-      google.script.run.withSuccessHandler(fill_ideas).get_ideas();
-    });
+$(function() {
+  google.script.run.withSuccessHandler(fill_goals).get_purpose();
+  google.script.run.withSuccessHandler(fill_fixes).check_presentation();
+  google.script.run.withSuccessHandler(fill_ideas).get_ideas();
+});
       
       function log_layouts(layouts) {
         console.log(layouts);

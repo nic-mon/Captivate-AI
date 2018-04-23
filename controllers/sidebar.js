@@ -13,11 +13,6 @@ function showSidebar() {
 }
 
 /*
- * Brainstorm form submission
- */
-
-
-/*
  * Function to process Form input from the client side
  *  Has 2 function calls: 1 to NLP API and 1 to Image Search API
  */
@@ -224,7 +219,7 @@ function get_ideas() {
 }
 
 function get_purpose() {
-  var purpose_data = ['45', 'to pursuade', 'stakeholders'];
+  var purpose_data = ['45', 'to persuade', 'stakeholders'];
   return purpose_data
 }
 
