@@ -43,7 +43,8 @@ $(function() {
 });
     
 $(function() {
-  google.script.run.withSuccessHandler(fill_goals).get_purpose();
+  //google.script.run.withSuccessHandler(fill_goals).get_purpose();
+    google.script.run.withSuccessHandler(fill_goals).readSurvey();
   google.script.run.withSuccessHandler(fill_fixes).check_presentation();
   google.script.run.withSuccessHandler(fill_ideas).get_ideas();
 });
@@ -69,12 +70,20 @@ $(function() {
       // [time, purpose, audience]
           // get variables from the user survey
 
-          var time, purpose, audience;
-        time = goal_data[0];
-        purpose = goal_data[1];
-        audience = goal_data[2];
+          var time, purpose, audience, gain;
+        // time = goal_data[0];
+        // purpose = goal_data[1];
+        // audience = goal_data[2];
 
-          google.script.run.readSurvey();
+
+         // var goals = google.script.run.readSurvey();
+
+          // gets goal data from database
+          audience = goal_data[0];
+          time = goal_data[1];
+          purpose = goal_data[2];
+          gain = goal_data[3];
+
         // put them in their respective divs and style them
           var time_text = "<span id='goal_time'>" + time + "\
             </span>";

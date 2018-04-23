@@ -97,14 +97,57 @@ function answerSurvey(aud, min, goal, gain) {
     Logger.log(gain);
     var conn = Jdbc.getCloudSqlConnection(dbUrl, root, rootPwd);
 
-    var stmt = conn.prepareStatement('INSERT INTO survey '
-        + '(audience, minutes, goal, gain) values (?, ?, ?, ?)');
+    // drop the table if needed for dev purposes
+    // conn.createStatement().execute('DROP TABLE survey');
 
-    stmt.setString(1, aud);
-    stmt.setString(2, min);
-    stmt.setString(3, goal);
-    stmt.setString(4, gain);
-    stmt.execute();
+    // conn.createStatement().execute('CREATE TABLE IF NOT EXISTS survey '
+    //     + '(audience VARCHAR(255), minutes INT, goal VARCHAR(255), '
+    //     + 'gain VARCHAR(255), '
+    //     +  'entryID INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(entryID));');
+
+    // run select stmt and check size of results set
+    Logger.log('hello');
+    var results = conn.createStatement().executeQuery('SELECT * FROM survey');
+    Logger.log('hello');
+    Logger.log(results);
+    var size = 0;
+    while (results.next()) {
+        size++;
+    }
+
+    if (size == 0) {
+        var stmt = conn.prepareStatement('INSERT INTO survey '
+            + '(audience, minutes, goal, gain) values (?, ?, ?, ?)');
+        stmt.setString(1, aud);
+        stmt.setString(2, min);
+        stmt.setString(3, goal);
+        stmt.setString(4, gain);
+        stmt.execute();
+    }
+    else if (size == 1) {
+        // var stmt = conn.prepareStatement('UPDATE survey '
+        //     + 'SET audience=?, minutes=?, goal=?, gain=?');
+
+        conn.createStatement().execute('DROP TABLE survey');
+
+        conn.createStatement().execute('CREATE TABLE IF NOT EXISTS survey '
+            + '(audience VARCHAR(255), minutes INT, goal VARCHAR(255), '
+            + 'gain VARCHAR(255), '
+            +  'entryID INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(entryID));');
+
+        var stmt = conn.prepareStatement('INSERT INTO survey '
+            + '(audience, minutes, goal, gain) values (?, ?, ?, ?)');
+        stmt.setString(1, aud);
+        stmt.setString(2, min);
+        stmt.setString(3, goal);
+        stmt.setString(4, gain);
+        stmt.execute();
+    }
+    else {
+        Logger.log('Error: more than 1 rows');
+    }
+
+
 }
 
 function readSurvey() {
@@ -117,10 +160,13 @@ function readSurvey() {
     quotes = [];
 
     while (results.next()) {
-        var quoteString = '"' + results.getString(1) + '" -' + results.getString(4);
-        quotes.push(quoteString);
+        //var quoteString = '"' + results.getString(1) + '" -' + results.getString(4);
+        quotes.push(results.getString(1));
+        quotes.push(results.getString(2));
+        quotes.push(results.getString(3));
+        quotes.push(results.getString(4));
     }
-
+    //quotes.push('2');
     results.close();
     stmt.close();
 
@@ -130,6 +176,7 @@ function readSurvey() {
 
     Logger.log(quotes);
     Logger.log('bookend');
+    return quotes;
     //Logger.log('Time elapsed: %sms', end - start);
 }
 
