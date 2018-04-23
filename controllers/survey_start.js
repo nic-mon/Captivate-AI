@@ -10,3 +10,7 @@ function userSurvey() {
     SlidesApp.getUi()
         .showModelessDialog(html, 'A few questions to help you get started');
 }
+
+function processStartForm(formObj) {
+    Logger.log(formObj.group1);
+}

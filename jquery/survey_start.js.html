@@ -1,8 +1,135 @@
 <script>
-    // $( "#spec4" ).hide();
-    //
-    // $( "#other4" ).click(function() {
-    //     $( "#spec4" ).show();
-    //
-    // });
+    //front end calls
+
+    /*
+     * Adds a row in the Database that records when each answer
+     * is selected.
+     *
+     * If selected, document.getElementById('students').value == "on"
+     * Also, if selected, document.getElementById('students').checked == True
+     *
+     * When Dom is sent to the backend, name and value are the only attributes that are
+     * maintained.
+     *
+     */
+    function submitStartSurvey(thisObject) {
+        var audience_ans, time_ans, goal_ans, gain_ans;
+
+        // get the answer for audience
+        if (document.getElementById('students').checked) {
+            var ans = document.getElementById('students_answer').innerHTML;
+            console.log(ans);
+            audience_ans = ans;
+        }
+        else if (document.getElementById('stakeholders').checked) {
+            var ans = document.getElementById('stakeholders_ans').innerHTML;
+            console.log(ans);
+            audience_ans = ans;
+        }
+        else if (document.getElementById('academia').checked) {
+            var ans = document.getElementById('academia_ans').innerHTML;
+            console.log(ans);
+            audience_ans = ans;
+        }
+        else {
+            var ans = document.getElementById('spec1').value;
+            console.log(ans);
+            audience_ans = ans;
+        }
+
+        // get the answer for time
+        if (document.getElementById('10max').checked) {
+            var ans = document.getElementById('10max_ans').innerHTML;
+            console.log(ans);
+            // store it as a string to avoid integer checking on the database side
+            // can do validation and calculation in the frontend
+            time_ans = "10";
+        }
+        else if (document.getElementById('15max').checked) {
+            var ans = document.getElementById('15max_ans').innerHTML;
+            console.log(ans);
+            time_ans = "15";
+        }
+        else if (document.getElementById('30max').checked) {
+            var ans = document.getElementById('30max_ans').innerHTML;
+            console.log(ans);
+            time_ans = "30";
+        }
+        else {
+            var ans = document.getElementById('spec2').value;
+            console.log(ans);
+            time_ans = ans;
+        }
+
+        // get the answer for goal
+        if (document.getElementById('convince').checked) {
+            var ans = document.getElementById('convince_ans').innerHTML;
+            console.log(ans);
+            goal_ans = ans;
+        }
+        else if (document.getElementById('sell').checked) {
+            var ans = document.getElementById('sell_ans').innerHTML;
+            console.log(ans);
+            goal_ans = ans;
+        }
+        else if (document.getElementById('deliver').checked) {
+            var ans = document.getElementById('deliver_ans').innerHTML;
+            console.log(ans);
+            goal_ans = ans;
+        }
+        else {
+            var ans = document.getElementById('spec3').value;
+            console.log(ans);
+            goal_ans = ans;
+        }
+
+        // get the answer for gain
+        if (document.getElementById('win').checked) {
+            var ans = document.getElementById('win_ans').innerHTML;
+            console.log(ans);
+            gain_ans = ans;
+        }
+        else if (document.getElementById('invest').checked) {
+            var ans = document.getElementById('invest_ans').innerHTML;
+            console.log(ans);
+            gain_ans = ans;
+        }
+        else if (document.getElementById('promotion').checked) {
+            var ans = document.getElementById('promotion_ans').innerHTML;
+            console.log(ans);
+            gain_ans = ans;
+        }
+        else {
+            var ans = document.getElementById('spec4').value;
+            console.log(ans);
+            gain_ans = ans;
+        }
+
+        //back end
+        console.log("Querying database.")
+        console.log(typeof(audience_ans));
+        google.script.run.answerSurvey(audience_ans, time_ans, goal_ans, gain_ans);
+        console.log("Finished updating database.")
+        google.script.run.showSidebar();
+        //console.log(document.myform2.name); //proof that the name is passed to the document
+        google.script.host.close();
+    }
+
+    function setupTime() {
+        console.log("I'm in the setup for time");
+        for (i=1; i < 31; i++) {
+            text = "<option value='" + i + "'>" + i + " minute(s)</option>";
+            $("#time_select").append(text);
+        }
+
+    }
+    function specifyOther() {
+        console.log("I'm in specificOther()");
+        // text = "<label>\n" +
+        //     "<input id=\"other1\" type=\"text\" class=\"validate\">\n" +
+        //     "<label for=\"other1\">Other (Please specify)</label>\n" +
+        //     "</label>";
+        $("#other1").show();
+    }
+
 </script>
