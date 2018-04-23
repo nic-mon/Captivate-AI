@@ -42,11 +42,12 @@ $(function() {
     $('#navbar').css({"position": "fixed", "bottom":"0"});
 });
     
-    $(function() {
-      google.script.run.withSuccessHandler(fill_goals).get_purpose();
-      google.script.run.withSuccessHandler(fill_fixes).check_presentation();
-      google.script.run.withSuccessHandler(fill_ideas).get_ideas();
-    });
+$(function() {
+  //google.script.run.withSuccessHandler(fill_goals).get_purpose();
+    google.script.run.withSuccessHandler(fill_goals).readSurvey();
+  google.script.run.withSuccessHandler(fill_fixes).check_presentation();
+  google.script.run.withSuccessHandler(fill_ideas).get_ideas();
+});
       
       function log_layouts(layouts) {
         console.log(layouts);
@@ -59,7 +60,6 @@ $(function() {
         goal_data = data[0];
         idea_data = data[1];
         fix_data = data[2];
-        
         fill_goals(goal_data);
         fill_ideas(idea_data);
         fill_fixes(fix_data);
@@ -69,9 +69,20 @@ $(function() {
       function fill_goals(goal_data) {
       // [time, purpose, audience]
           // get variables from the user survey
-        time = goal_data[0];
-        purpose = goal_data[1];
-        audience = goal_data[2];
+
+          var time, purpose, audience, gain;
+        // time = goal_data[0];
+        // purpose = goal_data[1];
+        // audience = goal_data[2];
+
+
+         // var goals = google.script.run.readSurvey();
+
+          // gets goal data from database
+          audience = goal_data[0];
+          time = goal_data[1];
+          purpose = goal_data[2];
+          gain = goal_data[3];
 
         // put them in their respective divs and style them
           var time_text = "<span id='goal_time'>" + time + "\
