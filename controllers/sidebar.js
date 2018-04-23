@@ -49,6 +49,7 @@ function processBrainstormUsingForm(formObject) {
 // checkers/counters built to work on one slide object
 // more efficient counters (used)
 function check_texts(slide) {
+  elements = slide.getPageElements();
   texts = getElementTexts(slide.getPageElements());
   var results = [];
   for(i=0; i < texts.length; i++) {
