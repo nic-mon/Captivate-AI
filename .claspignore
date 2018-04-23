@@ -1,3 +1,4 @@
 **/icons/**
 README.md
 **/deployment/**
+server/flaskapp.py
