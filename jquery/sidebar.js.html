@@ -48,6 +48,15 @@ $(function() {
   google.script.run.withSuccessHandler(fill_fixes).check_presentation();
   google.script.run.withSuccessHandler(fill_ideas).get_ideas();
 });
+
+// testing the fixes page
+$(function() {
+   google.script.run.withSuccessHandler(output).count_fonts()
+});
+
+function output(fonts) {
+    console.log(fonts);
+}
       
       function log_layouts(layouts) {
         console.log(layouts);

@@ -49,10 +49,12 @@ function check_texts(slide) {
   for(i=0; i < texts.length; i++) {
     var result = {};
     result.font = texts[i].getTextStyle().getFontFamily();
+
     result.fontsize = texts[i].getTextStyle().getFontSize();
     result.textlength = texts[i].getLength();
     results.push(result);
   }
+
   return results
 }
 
@@ -79,7 +81,8 @@ function check_presentation() {
   // var img_areas = [];
   //for(i=0; i < slides.length; i++) {
     slides.forEach(function(slide, i) {
-    var results = check_texts(slide);
+    //var results = check_texts(slide);
+    var results = count_fonts_used(slide);
     var img_sizes = count_imgs_sizes(slide);
     var slide_fonts = [];
     var slide_fontsizes = [];
@@ -92,8 +95,10 @@ function check_presentation() {
       slide_textlengths.push(result.textlength);
     });
     // more than 2 fonts or fontsizes on one slide notification
-    if (slide_fonts.length > 2 ) { notifications.push('You are using '+slide_fonts.length+' fonts on slide '+(i+1)+'.  Consider using one or two max.'); }
-    if (slide_fontsizes.length > 2 ) { notifications.push('You are using '+slide_fontsizes.length+' fontsizes on slide '+(i+1)+'.  Consider using one or two max.'); }
+        var fonts_per_slide = results.length;
+        var fontsizes_per_slide = slide_fontsizes.length;
+    if (fonts_per_slide > 2 ) { notifications.push('You are using '+fonts_per_slide +' fonts on slide '+(i+1)+'.  Consider using one or two max.'); }
+    if (fontsizes_per_slide > 2 ) { notifications.push('You are using '+fontsizes_per_slide+' fontsizes on slide '+(i+1)+'.  Consider using one or two max.'); }
 
     // word to img ratio notification
     var total_textarea = get_total_text_area(slide_textlengths, slide_fontsizes);
@@ -103,14 +108,17 @@ function check_presentation() {
     fonts.push(slide_fonts);
     fontsizes.push(slide_fontsizes);
   });
-  if (font_inconsistancies.length > 0) {notifications.push(get_inc_notification_string(font_inconsistancies, 'font'));}
+  //if (font_inconsistancies.length > 0) {notifications.push(get_inc_notification_string(font_inconsistancies, 'font'));}
   if (fontsize_inconsistancies.length > 0) {notifications.push(get_inc_notification_string(fontsize_inconsistancies, 'fontsize'));}
   var fonts_used = dedupe_arr([].concat.apply([], fonts));
   var fontsizes_used = dedupe_arr([].concat.apply([],fontsizes));
     //var fonts_used = dedupe_arr(fonts.flatten());
     //var fontsizes_used = dedupe_arr(fontsizes.flatten());
-  if (fonts_used.length > 2) {notifications.push('You are using '+fonts_used.length+' different fonts in your presentation.  Consider using one or two max.');}
-  if (fontsizes_used.length > 2) {notifications.push('You are using '+fontsizes_used.length+' different fontsizes in your presentation.  Consider using one or two max.');}
+    // again subtract 1 to eliminate the undefined font
+    var total_fonts = fonts_used.length;
+    var total_fontsizes = fontsizes_used.length;
+  if (total_fonts > 2) {notifications.push('You are using '+total_fonts+' different fonts in your presentation.  Consider using one or two max.');}
+  if (total_fontsizes > 2) {notifications.push('You are using '+total_fontsizes+' different fontsizes in your presentation.  Consider using one or two max.');}
   return notifications
 }
 
@@ -178,10 +186,40 @@ function check_for_inconsistancies(slide) {
 function count_fonts_used(slide) {
   texts = getElementTexts(slide.getPageElements());
   var fonts = [];
+  var numArial = 0;
   texts.forEach(function(text) {
     fonts.push(text.getTextStyle().getFontFamily());  // font family of textrange, null if multiple
+    if (text.getTextStyle().getFontFamily() == 'Arial') {
+        numArial++;
+    }
   });
-  return fonts
+  // protect against counting 'Arial' as a font, if it's associated with an image
+  // check how many times 'Arial' appears as a font
+  if (numArial == 1) {
+      fonts = dedupe_arr([].concat.apply([], fonts));
+      remove(fonts,'Arial');
+  }
+  else if (numArial > 1){
+      fonts = dedupe_arr([].concat.apply([], fonts));
+  }
+  else {
+      fonts = dedupe_arr([].concat.apply([], fonts));
+  }
+  return fonts;
+}
+
+function remove(array, element) {
+    const index = array.indexOf(element);
+
+    if (index !== -1) {
+        array.splice(index, 1);
+    }
+}
+
+function count_fonts() {
+    var slide = SlidesApp.getActivePresentation().getSelection().getCurrentPage().asSlide();
+    var fonts = count_fonts_used(slide);
+    return fonts;
 }
 
 function count_fontsizes_used(slide) {
