@@ -23,38 +23,14 @@ function getQuotes(word) {
         "encodingType": "UTF8"
     };
 
-    // specific the POST request params
-    // var options = {
-    //     method: "POST",
-    //     contentType: "application/json",
-    //     payload : JSON.stringify(data)
-    // };
-
     var options = {
         method: "GET",
         contentType: "text/html"
     };
 
-    //payload : JSON.stringify(data)
-
-    // store response from the API
-    //var response = UrlFetchApp.fetch(requestUrl, options);
-
     var response = UrlFetchApp.fetch(requestUrl);
-    // UrlFetchApp.fetch(requestUrl, options);
 
-    // return JSON of extracted entities
-    //var json_quotes = JSON.parse(response);
-
-    //Logger.log(json_topics);
-
-    // parse JSON into string topics
-    //var topics = getEntities(json_topics)
-    //Logger.log(topics);
-
-    //showSidebar();
     return response.getContentText();
-    //return json_quotes;
 }
 
 /**
