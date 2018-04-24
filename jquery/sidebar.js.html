@@ -50,9 +50,30 @@ $(function() {
 });
 
 // testing the fixes page
+/// The following function test the count font, fontsizes, and img sizes functions
+/// on a current slide
 $(function() {
-   google.script.run.withSuccessHandler(output).count_fonts()
+   google.script.run.withSuccessHandler(output).count_fonts();
 });
+
+$(function() {
+    google.script.run.withSuccessHandler(output).count_fontsizes();
+});
+
+
+$(function() {
+    google.script.run.withSuccessHandler(output).count_img_size();
+});
+
+$(function() {
+    google.script.run.withSuccessHandler(output).count_textlength();
+});
+
+$(function() {
+    google.script.run.withSuccessHandler(output).test_textarea();
+});
+
+/////////////////////////////////////////////////////////////////////////////////
 
 function output(fonts) {
     console.log(fonts);
