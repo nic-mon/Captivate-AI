@@ -12,6 +12,13 @@ function showSidebar() {
   SlidesApp.getUi().showSidebar(ui);
 }
 
+// call to quotes api
+function test_quotes_api() {
+    var quotes = getQuotes("success");
+    return quotes;
+}
+
+
 /*
  * Function to process Form input from the client side
  *  Has 2 function calls: 1 to NLP API and 1 to Image Search API
