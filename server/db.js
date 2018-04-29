@@ -187,7 +187,7 @@ function readSurvey() {
     results.close();
     stmt.close();
 
-    return quotes;
+    return survey;
 }
 
 // Write 500 rows of data to a table in a single batch.
