@@ -27,7 +27,7 @@ $(function() {
 
 
         // var goals = google.script.run.readSurvey();
-
+        //console.log(survey_data);
         // gets goal data from database
         audience = survey_data[0];
         time = survey_data[1];
@@ -42,7 +42,6 @@ $(function() {
         var audience_text = "<span class='temp_aud'>" + audience + "\
             </span>";
 
-        $('#number_of_slides').append('hello');
         $('#number_of_slides').append(time_text);
         $('#template_goal').append(goal_text);
         $('#template_audience').append(audience_text);
