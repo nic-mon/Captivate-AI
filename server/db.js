@@ -15,26 +15,6 @@ var instanceUrl = 'jdbc:google:mysql://' + connectionName;
 var dbUrl = instanceUrl + '/' + db;
 
 
-function readQuotes() {
-    var conn = Jdbc.getCloudSqlConnection(dbUrl, root, rootPwd);
-    var stmt = conn.createStatement();
-    stmt.setMaxRows(1000);
-
-    var results = stmt.executeQuery('SELECT * FROM quotes');
-
-    quotes = [];
-
-    while (results.next()) {
-        var quoteString = '"' + results.getString(2) + '" -' + results.getString(1);
-        quotes.push(quoteString);
-    }
-
-    results.close();
-    stmt.close();
-
-    return quotes;
-}
-
 // functions below from how-to-guide
 
 // Create a new database within a Cloud SQL instance.
