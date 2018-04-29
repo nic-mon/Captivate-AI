@@ -46,7 +46,8 @@ $(function() {
   //google.script.run.withSuccessHandler(fill_goals).get_purpose();
   google.script.run.withSuccessHandler(fill_goals).readSurvey();
   google.script.run.withSuccessHandler(fill_fixes).check_presentation();
-  google.script.run.withSuccessHandler(fill_ideas).get_ideas();
+  google.script.run.withSuccessHandler(add_font_idea).get_fonts();
+  google.script.run.withSuccessHandler(add_quote_idea).get_quotes();
 });
 
 // testing the fixes page
