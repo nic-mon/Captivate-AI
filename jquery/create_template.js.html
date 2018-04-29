@@ -73,8 +73,7 @@
         var lower_bound_slides_per_minute = 0.6; // 3 slides per 5 minutes
         var upper_bound = 1; // 5 slides per 5 minutes
         var num_slides =  time*(lower_bound_slides_per_minute);
-
-        console.log("I'm in the num slides for loop");
+        
         for (var i=0; i < num_slides; i++) {
             google.script.run.addSlide();
         }
