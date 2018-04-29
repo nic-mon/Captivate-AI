@@ -310,11 +310,15 @@ function first_update() {
 
 }
 
-function get_ideas() { 
-  quotes = readQuotes();
+function get_fonts() { 
   fonts = ['Times New Roman', 'Athelas', 'Georgia'];
-  idea_data = [fonts, quotes];
-  return idea_data;
+  return fonts;
+}
+
+function get_quotes() {
+  quotes = test_quotes_api().split('|');
+  return [quotes[1], quotes[2]];
+
 }
 
 function get_purpose() {
