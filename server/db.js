@@ -146,25 +146,27 @@ function readSurvey() {
     var results = stmt.executeQuery('SELECT * FROM survey WHERE presID = "'+presID+'"');
 
     var size = 0;
+    var survey = [];
     while (results.next()) {
         size++;
+        if (size == 1) {
+            survey.push(results.getString(1));
+            survey.push(results.getString(2));
+            survey.push(results.getString(3));
+            survey.push(results.getString(4));
+        }
     }
-    var survey = [];
 
     if (size == 0) {
         Logger.log('No survey found for this presentation');
     }
     else if (size == 1) {
         Logger.log('survey found');
-        survey.push(results.getString(1));
-        survey.push(results.getString(2));
-        survey.push(results.getString(3));
-        survey.push(results.getString(4));
     }
     else {
         Logger.log('More than one survey found for this presentation')
     }
-    //quotes.push('2');
+
     results.close();
     stmt.close();
 
