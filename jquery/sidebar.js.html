@@ -83,10 +83,11 @@ $(function() {
     google.script.run.withSuccessHandler(output).test_quotes_api();
 });
 
-$(function() {
-    console.log("Creating a auto-refresh");
-    google.script.run.createTrigger();
-});
+// Triggers only work when the app is deployed. It is disabled for the Test Add-on environment
+// $(function() {
+//     console.log("Creating a auto-refresh");
+//     google.script.run.createTrigger();
+// });
 
 // $(function() {
 //     console.log("Deleting a auto-refresh");
@@ -95,16 +96,16 @@ $(function() {
 
 
 function refreshData() {
-    console.log('Refreshed!')
+    console.log('Refreshed a minute later!');
     google.script.run.withSuccessHandler(fill_goals).readSurvey();
     google.script.run.withSuccessHandler(fill_fixes).check_presentation();
     google.script.run.withSuccessHandler(add_font_idea).get_fonts();
     google.script.run.withSuccessHandler(add_quote_idea).get_quotes();
 }
 
-function output(fonts) {
-    console.log(fonts);
-}
+    function output(fonts) {
+        console.log(fonts);
+    }
       
       function log_layouts(layouts) {
         console.log(layouts);

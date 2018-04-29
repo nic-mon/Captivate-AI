@@ -27,5 +27,7 @@ function onOpen(e) {
     // .addItem('Brainstorm', 'askQuestions')
     // .addSeparator()
     .addItem('About CaptivateAI', 'openDialog')
+    .addSeparator()
+    .addItem('Create Template', 'templateDialog')
     .addToUi();
 }

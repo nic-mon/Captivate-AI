@@ -90,6 +90,7 @@ function answerSurvey(aud, min, goal, gain) {
 
     var results = conn.createStatement().executeQuery('SELECT * FROM survey WHERE presID = "'+presID+'"');
 
+    //var results = conn.createStatement().executeQuery('SELECT * FROM survey');
     Logger.log(results);
 
     var size = 0;
