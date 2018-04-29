@@ -8,7 +8,7 @@ var user = 'user_name';
 var userPwd = 'user_password';
 
 //name of db
-var db = 'content';
+var db = 'userdata';
 
 var root = 'root';
 var instanceUrl = 'jdbc:google:mysql://' + connectionName;
@@ -84,7 +84,7 @@ function createSurveyTable() {
     conn.createStatement().execute('CREATE TABLE IF NOT EXISTS survey '
         + '(audience VARCHAR(255), minutes INT, goal VARCHAR(255), '
         + 'gain VARCHAR(255), '
-        +  'entryID INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(entryID));');
+        +  'presID VARCHAR(255) NOT NULL, PRIMARY KEY(presID));');
 }
 
 ////////// write
@@ -106,45 +106,51 @@ function answerSurvey(aud, min, goal, gain) {
     //     +  'entryID INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(entryID));');
 
     // run select stmt and check size of results set
-    Logger.log('hello');
-    var results = conn.createStatement().executeQuery('SELECT * FROM survey');
-    Logger.log('hello');
+    var presID = SlidesApp.getActivePresentation().getId();
+
+    var results = conn.createStatement().executeQuery('SELECT * FROM survey WHERE presID = "'+presID+'"');
+
     Logger.log(results);
+
     var size = 0;
     while (results.next()) {
         size++;
     }
 
+    var presID = SlidesApp.getActivePresentation().getId();
+
+    // presentation ID not already in DB
     if (size == 0) {
         var stmt = conn.prepareStatement('INSERT INTO survey '
-            + '(audience, minutes, goal, gain) values (?, ?, ?, ?)');
+            + '(audience, minutes, goal, gain, presID) values (?, ?, ?, ?, ?)');
         stmt.setString(1, aud);
         stmt.setString(2, min);
         stmt.setString(3, goal);
         stmt.setString(4, gain);
+        stmt.setString(5, presID);
         stmt.execute();
     }
     else if (size == 1) {
         // var stmt = conn.prepareStatement('UPDATE survey '
         //     + 'SET audience=?, minutes=?, goal=?, gain=?');
         // quick workaround:
-        conn.createStatement().execute('DROP TABLE survey');
 
-        conn.createStatement().execute('CREATE TABLE IF NOT EXISTS survey '
-            + '(audience VARCHAR(255), minutes INT, goal VARCHAR(255), '
-            + 'gain VARCHAR(255), '
-            +  'entryID INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(entryID));');
+        // conn.createStatement().execute('CREATE TABLE IF NOT EXISTS survey '
+        //     + '(audience VARCHAR(255), minutes INT, goal VARCHAR(255), '
+        //     + 'gain VARCHAR(255), '
+        //     +  'entryID INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(entryID));');
 
-        var stmt = conn.prepareStatement('INSERT INTO survey '
-            + '(audience, minutes, goal, gain) values (?, ?, ?, ?)');
-        stmt.setString(1, aud);
-        stmt.setString(2, min);
-        stmt.setString(3, goal);
-        stmt.setString(4, gain);
-        stmt.execute();
+        // var stmt = conn.prepareStatement('INSERT INTO survey '
+        //     + '(audience, minutes, goal, gain) values (?, ?, ?, ?)');
+        // stmt.setString(1, aud);
+        // stmt.setString(2, min);
+        // stmt.setString(3, goal);
+        // stmt.setString(4, gain);
+        // stmt.execute();
+        Logger.log('Error: presID already in db')
     }
     else {
-        Logger.log('Error: more than 1 rows');
+        Logger.log('Error: more than 1 rows with same presID');
     }
 
 
@@ -155,29 +161,33 @@ function readSurvey() {
     var stmt = conn.createStatement();
     stmt.setMaxRows(1000);
 
-    var results = stmt.executeQuery('SELECT * FROM survey');
+    var presID = SlidesApp.getActivePresentation().getId();
 
-    quotes = [];
+    var results = stmt.executeQuery('SELECT * FROM survey WHERE presID = "'+presID+'"');
 
+    var size = 0;
     while (results.next()) {
-        //var quoteString = '"' + results.getString(1) + '" -' + results.getString(4);
-        quotes.push(results.getString(1));
-        quotes.push(results.getString(2));
-        quotes.push(results.getString(3));
-        quotes.push(results.getString(4));
+        size++;
+    }
+    var survey = [];
+
+    if (size == 0) {
+        Logger.log('No survey found for this presentation')
+    }
+    else if (size == 1) {
+        survey.push(results.getString(1));
+        survey.push(results.getString(2));
+        survey.push(results.getString(3));
+        survey.push(results.getString(4));
+    }
+    else {
+        Logger.log('More than one survey found for this presentation')
     }
     //quotes.push('2');
     results.close();
     stmt.close();
 
-
-
-
-
-    Logger.log(quotes);
-    Logger.log('bookend');
     return quotes;
-    //Logger.log('Time elapsed: %sms', end - start);
 }
 
 // Write 500 rows of data to a table in a single batch.
