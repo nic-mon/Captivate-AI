@@ -18,6 +18,22 @@ function test_quotes_api() {
     return quotes;
 }
 
+// Trigger to Refresh Data
+function createTrigger() {
+    ScriptApp.newTrigger('refreshData') // refreshData called in sidebar.js.html
+        .timeBased()
+        //.after(5000) // milliseconds
+        .everyMinutes(10)
+        .create();
+}
+
+function deleteTrigger() {
+    // Authorization is required to use ScriptApp's Triggers
+    var allTriggers = ScriptApp.getProjectTriggers();
+    for (var i=0; i < allTriggers.length; i++) {
+        ScriptApp.deleteTrigger();
+    }
+}
 
 /*
  * Function to process Form input from the client side
