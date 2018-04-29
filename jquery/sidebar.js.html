@@ -94,15 +94,15 @@ $(function() {
 
 
 function refreshData() {
-    console.log('Refreshed!')
+    console.log('Refreshed a minute later!')
     google.script.run.withSuccessHandler(fill_goals).readSurvey();
     google.script.run.withSuccessHandler(fill_fixes).check_presentation();
     google.script.run.withSuccessHandler(fill_ideas).get_ideas();
 }
 
-function output(fonts) {
-    console.log(fonts);
-}
+    function output(fonts) {
+        console.log(fonts);
+    }
       
       function log_layouts(layouts) {
         console.log(layouts);

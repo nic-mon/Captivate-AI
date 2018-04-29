@@ -1,0 +1,51 @@
+<script>
+    //front end calls
+
+    /*
+     * Adds a row in the Database that records when each answer
+     * is selected.
+     *
+     * If selected, document.getElementById('students').value == "on"
+     * Also, if selected, document.getElementById('students').checked == True
+     *
+     * When Dom is sent to the backend, name and value are the only attributes that are
+     * maintained.
+     *
+     */
+$(function() {
+    google.script.run.withSuccessHandler(fill_template).readSurvey();
+});
+
+    function fill_template(survey_data) {
+        // [time, purpose, audience]
+        // get variables from the user survey
+
+        var time, purpose, audience, gain;
+        // time = goal_data[0];
+        // purpose = goal_data[1];
+        // audience = goal_data[2];
+
+
+        // var goals = google.script.run.readSurvey();
+
+        // gets goal data from database
+        audience = survey_data[0];
+        time = survey_data[1];
+        purpose = survey_data[2];
+        gain = survey_data[3];
+
+        // put them in their respective divs and style them
+        var time_text = "<span id='num_slides'>" + time + "\
+            </span>";
+        var goal_text = "<span class='temp_goal'>" + purpose + "\
+            </span>";
+        var audience_text = "<span class='temp_aud'>" + audience + "\
+            </span>";
+
+        $('#number_of_slides').append('hello');
+        $('#number_of_slides').append(time_text);
+        $('#template_goal').append(goal_text);
+        $('#template_audience').append(audience_text);
+    }
+
+</script>

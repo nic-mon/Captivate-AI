@@ -106,9 +106,7 @@ function answerSurvey(aud, min, goal, gain) {
     //     +  'entryID INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(entryID));');
 
     // run select stmt and check size of results set
-    Logger.log('hello');
     var results = conn.createStatement().executeQuery('SELECT * FROM survey');
-    Logger.log('hello');
     Logger.log(results);
     var size = 0;
     while (results.next()) {
