@@ -1,40 +1,40 @@
 <html>
 <head>
 
-<?!= include('views/create_template.css'); ?>
-<?!= include('jquery/create_template.js'); ?>
-<!-- Materialize icons -->
-<link rel = "stylesheet"
-      href = "https://fonts.googleapis.com/icon?family=Material+Icons">
-<!-- Compiled and minified Materialize CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <?!= include('views/create_template.css'); ?>
+    <?!= include('jquery/create_template.js'); ?>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!-- Materialize icons -->
+    <link rel = "stylesheet"
+          href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Compiled and minified Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
 
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-<!-- Compiled and minified JQuery -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<!--<body onload="setupTime()">-->
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <!-- Compiled and minified JQuery -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!--<body onload="setupTime()">-->
 </head>
 <body>
-<div class="">
-    <div class="container">
-        <div class="row c10">
-            <span class="float left-align">Based on your answers, we came up with the following template.</span>
+    <div class="">
+        <div class="container">
+            <div class="row c10">
+                <span class="float left-align">Based on your answers, we came up with the following template.</span>
+            </div>
         </div>
+
+        <div id="number_of_slides"></div>
+        <div id="template_goal"></div>
+        <div id="template_audience"></div>
+
+    </div>
+    <div class="row"></div>
+    <br>
+    <div class="btn small blue accent-2" value="submit" onclick="generateTemplate()">
+        Let's see it!
     </div>
 
-    <div id="number_of_slides"></div>
-    <div id="template_goal"></div>
-    <div id="template_audience"></div>
-
-</div>
-
-<div class="">
-    <!--<a class="waves-light waves-effect btn-small blue accent-2"-->
-    <!--onclick="google.script.host.close()" >Close<i class="material-icons right">cancel</i></a>-->
-</div>
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<?!= include('jquery/create_template.js'); ?>
+    <?!= include('jquery/create_template.js'); ?>
 </body>
 </html>

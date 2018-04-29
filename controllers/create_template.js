@@ -4,9 +4,9 @@
  *
  **********************************************************************/
 
-function createTemplate() {
+function templateDialog() {
     var html = HtmlService.createTemplateFromFile('views/create_template')
         .evaluate();
     SlidesApp.getUi()
-        .showModelessDialog(html, 'A few questions to help you get started');
+        .showModelessDialog(html, 'Generate Template');
 }

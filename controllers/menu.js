@@ -28,6 +28,6 @@ function onOpen(e) {
     // .addSeparator()
     .addItem('About CaptivateAI', 'openDialog')
     .addSeparator()
-    .addItem('Create Template', 'createTemplate')
+    .addItem('Create Template', 'templateDialog')
     .addToUi();
 }
