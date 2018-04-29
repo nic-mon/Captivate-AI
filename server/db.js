@@ -155,10 +155,8 @@ function readSurvey() {
         Logger.log('No survey found for this presentation')
     }
     else if (size == 1) {
-        survey.push(results.getString(1));
-        survey.push(results.getString(2));
-        survey.push(results.getString(3));
-        survey.push(results.getString(4));
+        Logger.log(results)
+        Logger.log('survey found')
     }
     else {
         Logger.log('More than one survey found for this presentation')
@@ -167,7 +165,7 @@ function readSurvey() {
     results.close();
     stmt.close();
 
-    return survey;
+    return results[0];
 }
 
 // Write 500 rows of data to a table in a single batch.
