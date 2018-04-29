@@ -82,6 +82,24 @@ $(function() {
     google.script.run.withSuccessHandler(output).test_quotes_api();
 });
 
+$(function() {
+    console.log("Creating a auto-refresh");
+    google.script.run.createTrigger();
+});
+
+// $(function() {
+//     console.log("Deleting a auto-refresh");
+//     google.script.run.deleteTrigger();
+// });
+
+
+function refreshData() {
+    console.log('Refreshed!')
+    google.script.run.withSuccessHandler(fill_goals).readSurvey();
+    google.script.run.withSuccessHandler(fill_fixes).check_presentation();
+    google.script.run.withSuccessHandler(fill_ideas).get_ideas();
+}
+
 function output(fonts) {
     console.log(fonts);
 }

@@ -51,7 +51,7 @@ function createUser() {
     stmt.setString(1, user);
     stmt.setString(2, userPwd);
     stmt.execute();
-
+  
     conn.createStatement().execute('GRANT ALL ON `%`.* TO ' + user);
 }
 
