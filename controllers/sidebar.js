@@ -40,7 +40,7 @@ function deleteTrigger() {
  *  Has 2 function calls: 1 to NLP API and 1 to Image Search API
  */
 function processBrainstormUsingForm(formObject) {
-    Logger.log("I am here!!! Process away!");
+    Logger.log("In the brainstorm, processing the form.");
     // blob will be encoded as a string
     Logger.log(formObject);
     var formBlob = formObject.brainstorm;
@@ -50,7 +50,7 @@ function processBrainstormUsingForm(formObject) {
     Logger.log(keywords);
     //keywords = ["banana"];
     var urls = [];
-    Logger.log("I am here again!!!");
+    Logger.log("Sending keywords to image API.");
     keywords.forEach(function(query) {
         Logger.log(query);
         var result = searchImages(query);
