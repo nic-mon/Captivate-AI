@@ -44,11 +44,41 @@
     });
 
     function generateTemplate() {
-        google.script.host.close();
+        // I need to wait until slides are generated before I close the dialog
+        // if I close the host, I can't insert slides
+        // currently the user should manually close the dialog
+        // google.script.host.close();
         console.log("I'm about to generate the template!");
-        console.log("First, I read from database.")
-        google.script.run.withSuccessHandler().readSurvey();
-        //google.script.run.showSidebar();
+        console.log("First, I read from database.");
+        readAndGenerate();
+
+
+    }
+
+    function readAndGenerate() {
+        console.log('in read and generate');
+        google.script.run.withSuccessHandler(makeSlides).readSurvey();
+    }
+
+    function makeSlides(survey_data) {
+        var time, purpose, audience, gain;
+
+        // gets goal data from database
+        audience = survey_data[0];
+        time = survey_data[1];
+        purpose = survey_data[2];
+        gain = survey_data[3];
+
+        //
+        var lower_bound_slides_per_minute = 0.6; // 3 slides per 5 minutes
+        var upper_bound = 1; // 5 slides per 5 minutes
+        var num_slides =  time*(lower_bound_slides_per_minute);
+
+        console.log("I'm in the num slides for loop");
+        for (var i=0; i < num_slides; i++) {
+            google.script.run.addSlide();
+        }
+
 
     }
 

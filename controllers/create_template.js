@@ -10,3 +10,8 @@ function templateDialog() {
     SlidesApp.getUi()
         .showModelessDialog(html, 'Generate Template');
 }
+
+function addSlide() {
+    var presentation = SlidesApp.getActivePresentation();
+    presentation.insertSlide(0);
+}
