@@ -89,7 +89,7 @@ function answerSurvey(aud, min, goal, gain) {
     var presID = SlidesApp.getActivePresentation().getId();
 
     var results = conn.createStatement().executeQuery('SELECT * FROM survey WHERE presID = "'+presID+'"');
-    
+
     Logger.log(results);
 
     var size = 0;
