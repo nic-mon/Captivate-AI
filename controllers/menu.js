@@ -20,6 +20,9 @@ function onInstall(e) {
 function onOpen(e) {
   var ui = SlidesApp.getUi();
     ui.createMenu('Captivate AI')
+
+        .addItem('Brainstorm', 'openBrainstorm')
+        .addSeparator()
     .addItem('Start here', 'userSurvey')
     .addSeparator()
     .addItem('In-slide Suggestions', 'showSidebar')
