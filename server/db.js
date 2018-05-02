@@ -60,7 +60,13 @@ function writeOneRecord(auth, quo) {
   Create a table to store the responses to the User Survey (at the Start Screen)
  */
 function createSurveyTable() {
+
+
     var conn = Jdbc.getCloudSqlConnection(dbUrl, root, rootPwd);
+
+    // uncomment to drop for dev purposes
+    //conn.createStatement().execute('DROP TABLE survey');
+
     conn.createStatement().execute('CREATE TABLE IF NOT EXISTS survey '
         + '(audience VARCHAR(255), minutes INT, goal VARCHAR(255), '
         + 'gain VARCHAR(255), '
@@ -128,19 +134,22 @@ function answerSurvey(aud, min, goal, gain) {
         // var stmt = conn.prepareStatement('UPDATE survey '
         //     + 'SET audience=?, minutes=?, goal=?, gain=?');
         // quick workaround:
+        conn.createStatement().execute('DROP TABLE survey;');
 
-        // conn.createStatement().execute('CREATE TABLE IF NOT EXISTS survey '
-        //     + '(audience VARCHAR(255), minutes INT, goal VARCHAR(255), '
-        //     + 'gain VARCHAR(255), '
-        //     +  'entryID INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(entryID));');
+        conn.createStatement().execute('CREATE TABLE IF NOT EXISTS survey '
+            + '(audience VARCHAR(255), minutes INT, goal VARCHAR(255), '
+            + 'gain VARCHAR(255), '
+            +  'presID VARCHAR(255) NOT NULL, PRIMARY KEY(presID));');
 
-        // var stmt = conn.prepareStatement('INSERT INTO survey '
-        //     + '(audience, minutes, goal, gain) values (?, ?, ?, ?)');
-        // stmt.setString(1, aud);
-        // stmt.setString(2, min);
-        // stmt.setString(3, goal);
-        // stmt.setString(4, gain);
-        // stmt.execute();
+        var stmt = conn.prepareStatement('INSERT INTO survey '
+            + '(audience, minutes, goal, gain, presID) values (?, ?, ?, ?, ?)');
+        stmt.setString(1, aud);
+        stmt.setString(2, min);
+        stmt.setString(3, goal);
+        stmt.setString(4, gain);
+        stmt.setString(5, presID);
+        stmt.execute();
+
         Logger.log('Error: presID already in db')
     }
     else {
