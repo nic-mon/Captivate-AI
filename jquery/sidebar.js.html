@@ -45,7 +45,7 @@ $(function() {
 $(function() {
   //google.script.run.withSuccessHandler(fill_goals).get_purpose();
   google.script.run.withSuccessHandler(fill_goals).readSurvey();
-  google.script.run.withSuccessHandler(fill_fixes).check_presentation();
+  google.script.run.withSuccessHandler(handle_check).check_presentation();
   google.script.run.withSuccessHandler(add_font_idea).get_fonts();
   google.script.run.withSuccessHandler(add_quote_idea).get_quotes();
 });
@@ -103,6 +103,29 @@ function refreshData() {
     google.script.run.withSuccessHandler(add_quote_idea).get_quotes();
 }
 
+function handle_check(arr) {
+  fill_fixes(arr[0]);
+  fill_checklist(arr[1], arr[2], arr[3], arr[4]);
+}
+
+function fill_checklist(fonts, fontsizes, num_bad_slides, num_slides) {
+  var font_string = '';
+  var fontsize_string = '';
+  var good_slide_string = ' ' + num_slides-num_bad_slides + ' / ' + num_slides + 'slides are clean.'
+  for (i=0; i < fonts.length; i++) {
+    if(i!=0) { font_string += ', '}
+    font_string += fonts[i]
+  }
+  font_string += '.'
+  for (i=0; i < fontsizes.length; i++) {
+    if(i!=0) { fontsize_string += ', '}
+    fontsize_string += fontsizes[i]
+  }
+  fontsize_string += '.'
+  $('clean_slides').text(good_slide_string);
+  $('fonts_used').text(font_string);
+  $('fontsizes_used').text(fontsize_string);
+}
     function output(fonts) {
         console.log(fonts);
     }
