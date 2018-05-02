@@ -67,6 +67,16 @@ function createSurveyTable() {
         +  'presID VARCHAR(255) NOT NULL, PRIMARY KEY(presID));');
 }
 
+/*
+  Create a table to store the responses to the Brainstorm (at the Start Screen)
+ */
+function createBrainstormTable() {
+    var conn = Jdbc.getCloudSqlConnection(dbUrl, root, rootPwd);
+    conn.createStatement().execute('CREATE TABLE IF NOT EXISTS brainstorm '
+        + '(word VARCHAR(100), '
+        +  'presID VARCHAR(255) NOT NULL, PRIMARY KEY(presID));');
+}
+
 ////////// write
 
 // Write one row of data to a table.
