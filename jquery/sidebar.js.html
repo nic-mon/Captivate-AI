@@ -47,7 +47,7 @@ $(function() {
   google.script.run.withSuccessHandler(fill_goals).readSurvey();
   google.script.run.withSuccessHandler(handle_check)._check_presentation();
   google.script.run.withSuccessHandler(add_font_idea).get_fonts();
-  google.script.run.withSuccessHandler(add_quote_idea).get_quotes();
+  //google.script.run.withSuccessHandler(add_quote_idea).get_quotes();
   google.script.run.withSuccessHandler(fill_fonts).get_fonts_used();
   google.script.run.withSuccessHandler(fill_fontsizes).get_fontsizes_used();
 
@@ -124,6 +124,24 @@ $(function() {
 
 });
 
+// read brainstorm and update quotes div
+$(function() {
+    console.log('Updating quotes div with those keywords populated from bstorm DB');
+
+    google.script.run.withSuccessHandler(
+        function(keywords) {
+            console.log(keywords);
+
+            //now do something else:
+            // update the div with images once getting all the URLs per keyword
+            google.script.run.withSuccessHandler(add_quote_idea).keywordsToQuotes(keywords)
+        }
+    ).readBrainstorm();
+
+});
+
+
+
 
 
 function refreshData() {
@@ -131,7 +149,7 @@ function refreshData() {
     google.script.run.withSuccessHandler(fill_goals).readSurvey();
     google.script.run.withSuccessHandler(fill_fixes)._check_presentation();
     google.script.run.withSuccessHandler(add_font_idea).get_fonts();
-    google.script.run.withSuccessHandler(add_quote_idea).get_quotes();
+    //google.script.run.withSuccessHandler(add_quote_idea).get_quotes();
     google.script.run.withSuccessHandler(fill_fonts).get_fonts_used();
     google.script.run.withSuccessHandler(fill_fontsizes).get_fontsizes_used();
 }

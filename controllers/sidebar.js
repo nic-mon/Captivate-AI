@@ -61,7 +61,7 @@ function processBrainstormUsingForm(formObject) {
     //return "https://picjumbo.com/wp-content/uploads/fresh-bananas-on-glossy-table-and-red-background_free_stock_photos_picjumbo_DSC08378.jpg";
 }
 
-// helper function for brainstorm initial dialog to the frontend
+// helper function for brainstorm initial dialog to the frontend image suggestor
 function urlPerKeyword(keywords) {
     var urls = [];
     Logger.log("Sending keywords to image API.");
@@ -72,6 +72,26 @@ function urlPerKeyword(keywords) {
     });
     Logger.log(urls);
     return urls;
+}
+
+// helper function for brainstorm initial dialog to the frontend
+function keywordsToQuotes(keywords) {
+    var quotes = [];
+    Logger.log("Sending keywords to quotes API.");
+    keywords.forEach(function(query) {
+        Logger.log(query);
+        var result = getQuotes(query);
+        // get all quotes from each of the matched keywords
+        var subset_of_quotes = result.split('|');
+        // getting quotes starting from the index 1 because the API
+        // gives the topic as the first (0th) entry of the response
+        // get the top 2 quotes for every word
+        quotes.push(subset_of_quotes[1]);
+        quotes.push(subset_of_quotes[2]);
+    });
+    Logger.log(quotes);
+    quotes = dedupe_arr([].concat.apply([],quotes))
+    return quotes;
 }
 
 
