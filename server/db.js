@@ -131,18 +131,10 @@ function answerSurvey(aud, min, goal, gain) {
         stmt.execute();
     }
     else if (size == 1) {
-        // var stmt = conn.prepareStatement('UPDATE survey '
-        //     + 'SET audience=?, minutes=?, goal=?, gain=?');
-        // quick workaround:
-        conn.createStatement().execute('DROP TABLE survey;');
-
-        conn.createStatement().execute('CREATE TABLE IF NOT EXISTS survey '
-            + '(audience VARCHAR(255), minutes INT, goal VARCHAR(255), '
-            + 'gain VARCHAR(255), '
-            +  'presID VARCHAR(255) NOT NULL, PRIMARY KEY(presID));');
-
-        var stmt = conn.prepareStatement('INSERT INTO survey '
-            + '(audience, minutes, goal, gain, presID) values (?, ?, ?, ?, ?)');
+        var stmt = conn.prepareStatement('UPDATE survey '
+            + 'SET audience=?, minutes=?, goal=?, gain=? '
+            + 'WHERE presID=?');
+        
         stmt.setString(1, aud);
         stmt.setString(2, min);
         stmt.setString(3, goal);
