@@ -63,6 +63,29 @@ function processBrainstormUsingForm(formObject) {
 
 
 /// my functions below
+function get_fonts_used() {
+  var fonts = [];
+  var slides = SlidesApp.getActivePresentation().getSlides();
+  slides.forEach(function(slide) {
+    texts = getElementTexts(slide.getPageElements());
+    texts.forEach(function(text) {
+      if(text.getLength()>0) { fonts.push(text.getTextStyle().getFontFamily()); }
+    });
+  });
+  return dedupe_arr(fonts).filter(function(val) { return val !== null; });
+}
+
+function get_fontsizes_used() {
+  var fontsizes = [];
+  var slides = SlidesApp.getActivePresentation().getSlides();
+  slides.forEach(function(slide) {
+    texts = getElementTexts(slide.getPageElements());
+    texts.forEach(function(text) {
+      if(text.getLength()>0) { fontsizes.push(text.getTextStyle().getFontSize()); }
+    });
+  });
+  return dedupe_arr(fontsizes).filter(function(val) { return val !== null; });
+}
 
 // checkers/counters built to work on one slide object
 // more efficient counters (used)
@@ -135,9 +158,7 @@ function generate_notifications(lengths, fonts, fontsizes, img_areas) {
   var notifications = [];
   var slide_fixes = [];
   var num_slides = lengths.length;
-  n1 = fonts.length;
-  n2 = fontsizes.length;
-  n3 = img_areas.length;
+
   for(i=0; i < num_slides; i++) {
     var slide_lengths = dedupe_arr([].concat.apply([],lengths[i])).filter(function(val) { return val !== null; });
     var slide_fonts = dedupe_arr([].concat.apply([],fonts[i])).filter(function(val) { return val !== null; });
@@ -181,10 +202,12 @@ function generate_notifications(lengths, fonts, fontsizes, img_areas) {
 function _check_presentation() {
   var notifications = [];
   var slides = SlidesApp.getActivePresentation().getSlides();
+  var num_slides = slides.length
   var font_inconsistancies = [];
   var fontsize_inconsistancies = [];
   var fonts = [];
   var fontsizes = [];
+  var bad_slides = [];
   // var lengths = [];
   // var img_areas = [];
   //for(i=0; i < slides.length; i++) {
@@ -208,7 +231,10 @@ function _check_presentation() {
     // more than 2 fonts or fontsizes on one slide notification
         var fonts_per_slide = results.length;
         var fontsizes_per_slide = fontsizes_results.length;
-    if (fonts_per_slide > 2 ) { notifications.push('You are using '+fonts_per_slide +' fonts on slide '+(i+1)+'.  Consider using one or two max.'); }
+    if (fonts_per_slide > 2 ) {
+      notifications.push('You are using '+fonts_per_slide +' fonts on slide '+(i+1)+'.  Consider using one or two max.');
+      bad_slides.push(i);
+      }
 
     // word to img ratio notification
     //var total_textarea = get_total_text_area(slide_textlengths, slide_fontsizes);
@@ -216,8 +242,14 @@ function _check_presentation() {
     //var total_imgarea = get_total_img_area(img_sizes);
     var total_imgarea = img_sizes;//get_total_img_area(img_sizes);
     //if (total_imgarea >= 0 &&  total_textarea/total_imgarea > 3) { notifications.push('You have too much text on slide '+(i+1)+'.  Consider replacing some text with images using our tool.'); }
-    if (total_textarea > 10000) { notifications.push('You have too much text on slide '+(i+1)+'.  Consider replacing some text with images using our tool.'); }
-    if (fontsizes_per_slide > 2 ) { notifications.push('You are using '+fontsizes_per_slide+' fontsizes on slide '+(i+1)+'.  Consider using one or two max.'); }
+    if (total_textarea > 10000) {
+      notifications.push('You have too much text on slide '+(i+1)+'.  Consider replacing some text with images using our tool.');
+      bad_slides.push(i);
+    }
+    if (fontsizes_per_slide > 2 ) {
+      notifications.push('You are using '+fontsizes_per_slide+' fontsizes on slide '+(i+1)+'.  Consider using one or two max.');
+      bad_slides.push(i);
+    }
 
     //fonts.push(slide_fonts);
     //fontsizes.push(slide_fontsizes);
@@ -235,7 +267,8 @@ function _check_presentation() {
     var total_fontsizes = fontsizes_used.length;
   if (total_fonts > 2) {notifications.push('You are using '+total_fonts+' different fonts in your presentation.  Consider using one or two max.');}
   if (total_fontsizes > 2) {notifications.push('You are using '+total_fontsizes+' different fontsizes in your presentation.  Consider using one or two max.');}
-  return notifications
+  var num_bad_slides = dedupe_arr(bad_slides).length;
+  return [notifications, num_bad_slides, num_slides]
 }
 
 
