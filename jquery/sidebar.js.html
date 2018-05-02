@@ -96,18 +96,32 @@ $(function() {
 
 // test brainstorm words logging in database, reads in the sidebar
 // this passes
-$(function () {
-   console.log('testing brainstorm reads from DB');
-   google.script.run.withSuccessHandler(output).readBrainstorm();
-});
+// $(function () {
+//    console.log('testing brainstorm reads from DB');
+//    google.script.run.withSuccessHandler(output).readBrainstorm();
+// });
 
 // read brainstorm and update images div
-// $(function() {
-//     console.log('Updating images div with those keywords populated from bstorm DB');
-//     var keywords = google.script.run.readBrainstorm();
-//     console.log(keywords);
-//     google.script.run.withSuccessHandler(updateDivWithImages).urlPerKeyword(keywords);
-// });
+$(function() {
+    console.log('Updating images div with those keywords populated from bstorm DB');
+    // can't do the paradigm below because google.script.run returns nothing. I have to
+    // chain two async calls.
+    //var keywords = google.script.run.readBrainstorm();
+    //console.log(keywords);
+
+    google.script.run.withSuccessHandler(
+        function(keywords) {
+            console.log(keywords);
+
+            //now do something else:
+            // update the div with images once getting all the URLs per keyword
+            google.script.run.withSuccessHandler(updateDivWithImages).urlPerKeyword(keywords)
+        }
+    ).readBrainstorm();
+
+});
+
+
 
 function refreshData() {
     console.log('Refreshed a minute later!');
