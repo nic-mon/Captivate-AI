@@ -40,7 +40,8 @@
     //update div based on results from images and NLP APIs
     function insertKeywordInDatabase(words) {
         words.forEach(function(word) {
-           insertWord(word);
+            console.log(word);
+           google.script.run.insertWord(word);
         });
     }
 

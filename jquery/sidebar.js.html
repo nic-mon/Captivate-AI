@@ -94,6 +94,11 @@ $(function() {
 //     google.script.run.deleteTrigger();
 // });
 
+// test brainstorm words logging in database, reads in the sidebar
+$(function () {
+   console.log('testing brainstorm reads from DB');
+   google.script.run.withSuccessHandler(output).readBrainstorm();
+});
 
 function refreshData() {
     console.log('Refreshed a minute later!');
