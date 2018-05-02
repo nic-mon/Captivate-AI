@@ -61,6 +61,19 @@ function processBrainstormUsingForm(formObject) {
     //return "https://picjumbo.com/wp-content/uploads/fresh-bananas-on-glossy-table-and-red-background_free_stock_photos_picjumbo_DSC08378.jpg";
 }
 
+// helper function for brainstorm initial dialog to the frontend
+function urlPerKeyword(keywords) {
+    var urls = [];
+    Logger.log("Sending keywords to image API.");
+    keywords.forEach(function(query) {
+        Logger.log(query);
+        var result = searchImages(query);
+        urls.push(result);
+    });
+    Logger.log(urls);
+    return urls;
+}
+
 
 /// my functions below
 

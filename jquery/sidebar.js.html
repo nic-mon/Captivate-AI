@@ -95,9 +95,18 @@ $(function() {
 // });
 
 // test brainstorm words logging in database, reads in the sidebar
+// this passes
 $(function () {
    console.log('testing brainstorm reads from DB');
    google.script.run.withSuccessHandler(output).readBrainstorm();
+});
+
+// read brainstorm and update images div
+$(function() {
+    console.log('Updating images div with those keywords populated from bstorm DB');
+    var keywords = google.script.run.readBrainstorm();
+    console.log(keywords);
+    google.script.run.withSuccessHandler(updateDivWithImages).urlPerKeyword(keywords);
 });
 
 function refreshData() {
