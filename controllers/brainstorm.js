@@ -4,14 +4,24 @@
  *
  **********************************************************************/
 
-function templateDialog() {
+function openBrainstorm() {
     var html = HtmlService.createTemplateFromFile('views/open_brainstorm')
         .evaluate();
     SlidesApp.getUi()
-        .showModelessDialog(html, 'Brainstorm');
+        .showModelessDialog(html, 'What do you plan to talk about?');
 }
 
-// function addSlide() {
-//     var presentation = SlidesApp.getActivePresentation();
-//     presentation.insertSlide(0);
-// }
+/*
+ * Function to process Form input from the client side
+ *  using the start dialog. Then it returns the keywords
+ */
+function brainstormToKeywords(formObject) {
+    Logger.log("In the brainstorm, processing the form.");
+    // blob will be encoded as a string
+    Logger.log(formObject);
+    var formBlob = formObject.brainstorm;
+    Logger.log(formBlob);
+    // returns keywords
+    var keywords = analyzeText(formBlob);
+    return keywords;
+}

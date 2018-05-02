@@ -16,23 +16,66 @@
     <!--<body onload="setupTime()">-->
 </head>
 <body>
+<script>
+    // Prevent forms from submitting.
+    function preventFormSubmit() {
+        var forms = document.querySelectorAll('form');
+        for (var i = 0; i < forms.length; i++) {
+            forms[i].addEventListener('submit', function(event) {
+                event.preventDefault();
+            });
+        }
+    }
+    window.addEventListener('load', preventFormSubmit);
+    function handleFormSubmit(formObject) {
+        google.script.run.withSuccessHandler(updateUrl).processForm(formObject);
+    }
+
+    function submitBrainstormFromDialog(formObject) {
+        google.script.run
+        // on success of first
+            .withSuccessHandler(insertKeywordInDatabase).brainstormToKeywords(formObject);
+    }
+
+    //update div based on results from images and NLP APIs
+    function insertKeywordInDatabase(words) {
+        words.forEach(function(word) {
+           insertWord(word);
+        });
+    }
+
+</script>
+
 <div class="">
     <div class="container">
         <div class="row c10">
-            <span class="float left-align">Based on your answers, we came up with the following template.</span>
+            <span class="float left-align">Tell us in a few words or sentences what you feel are going to be your biggest talking points.
+            This helps us generate content (such as text and images) to recommend to you.</span>
         </div>
     </div>
 
-    <div id="number_of_slides"></div>
-    <div id="template_goal"></div>
-    <div id="template_audience"></div>
+    <!-- brainstorm session in the sidebar -->
+    <div class="col s12 container">
 
+        <!-- brainstorm session in the sidebar -->
+        <form id='brainstorm_form_dialog' method="post" onsubmit="submitBrainstormFromDialog(this)">
+            <!--Name: <input label="name" type="text" name="name" /><br/>-->
+            <div class="row">
+                <div class="input-field col s11">
+                    <i class="material-icons prefix">create</i>
+                    <textarea class="materialize-textarea" label="brainstorm" name="brainstorm">Enter words or sentences.
+                </textarea><br/>
+                </div>
+            </div>
+            <div class="center-align"><input class="btn green accent-2 waves-light waves-effect white-text" type="submit" value="Submit" /></div>
+        </form>
+    </div>
 </div>
 <div class="row"></div>
 <br>
-<div class="btn small blue accent-2" value="submit" onclick="generateTemplate()">
-    Let's see it!
-</div>
+<!--<div class="btn small blue accent-2" value="submit" onclick="generateTemplate()">-->
+    <!--Let's see it!-->
+<!--</div>-->
 <?!= include('jquery/create_template.js'); ?>
 </body>
 </html>
