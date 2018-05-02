@@ -67,6 +67,20 @@ function createSurveyTable() {
         +  'presID VARCHAR(255) NOT NULL, PRIMARY KEY(presID));');
 }
 
+/*
+  Create a table to store the responses to the Brainstorm (at the Start Screen)
+ */
+function createBrainstormTable() {
+    var conn = Jdbc.getCloudSqlConnection(dbUrl, root, rootPwd);
+
+    // uncomment if need to restart for dev purposes
+    //conn.createStatement().execute('DROP TABLE brainstorm');
+
+    conn.createStatement().execute('CREATE TABLE IF NOT EXISTS brainstorm '
+        + '(word VARCHAR(100), '
+        +  'presID VARCHAR(255) NOT NULL);');
+}
+
 ////////// write
 
 // Write one row of data to a table.
@@ -136,6 +150,42 @@ function answerSurvey(aud, min, goal, gain) {
 
 }
 
+// insert a word into Brainstorm
+// Write one row of data to a table.
+function insertWord(word) {
+    Logger.log(word);
+    var conn = Jdbc.getCloudSqlConnection(dbUrl, root, rootPwd);
+
+    // drop the table if needed for dev purposes
+    //conn.createStatement().execute('DROP TABLE brainstorm');
+
+    // conn.createStatement().execute('CREATE TABLE IF NOT EXISTS brainstorm '
+    //     + '(word VARCHAR(100), '
+    //     +  'presID VARCHAR(255) NOT NULL, PRIMARY KEY(presID));');
+
+    // run select stmt and check size of results set
+    var presID = SlidesApp.getActivePresentation().getId();
+
+    var results = conn.createStatement().executeQuery('SELECT * FROM survey WHERE presID = "'+presID+'"');
+
+    Logger.log(results);
+
+    var size = 0;
+    while (results.next()) {
+        size++;
+    }
+
+    var presID = SlidesApp.getActivePresentation().getId();
+
+    // presentation ID not already in DB
+
+    var stmt = conn.prepareStatement('INSERT INTO brainstorm '
+        + '(word, presID) values (?, ?)');
+    stmt.setString(1, word);
+    stmt.setString(2, presID);
+    stmt.execute();
+}
+
 function readSurvey() {
     var conn = Jdbc.getCloudSqlConnection(dbUrl, root, rootPwd);
     var stmt = conn.createStatement();
@@ -171,6 +221,39 @@ function readSurvey() {
     stmt.close();
 
     return survey;
+}
+
+// Get all words from the brainstorm
+function readBrainstorm() {
+    var conn = Jdbc.getCloudSqlConnection(dbUrl, root, rootPwd);
+    var stmt = conn.createStatement();
+    stmt.setMaxRows(1000);
+
+    var presID = SlidesApp.getActivePresentation().getId();
+
+    var results = stmt.executeQuery('SELECT * FROM brainstorm WHERE presID = "'+presID+'"');
+
+    var size = 0;
+    var brainstorm = [];
+    while (results.next()) {
+        size++;
+        brainstorm.push(results.getString(1));
+    }
+
+    if (size == 0) {
+        Logger.log('No brainstorm found for this presentation');
+    }
+    else if (size == 1) {
+        Logger.log('brainstorm found');
+    }
+    else {
+        Logger.log('More than one brainstorm found for this presentation')
+    }
+
+    results.close();
+    stmt.close();
+
+    return brainstorm;
 }
 
 // Write 500 rows of data to a table in a single batch.
